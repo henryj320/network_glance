@@ -37,3 +37,14 @@ Last update: 2023/03/17 22:59
         - ` python `
         - ` >>> from network_glance import network_glance_script as ng `
         - ` >>> ng.run `
+2. Setting up the sprint board
+3. Testing libraries
+    - Testing who-is-on-my-wifi
+        - ` wiom -d `
+            - Shows info on this device
+        - ` wiom -w `
+            - Seems to require sudo permissions
+    - Testing scapy
+        - https://www.geeksforgeeks.org/network-scanning-using-scapy-module-python/?ref=rp
+        - Used to make a packet
+        - https://github.com/bwaldvogel/neighbourhood
