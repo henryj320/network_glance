@@ -48,3 +48,18 @@ Last update: 2023/03/17 22:59
         - https://www.geeksforgeeks.org/network-scanning-using-scapy-module-python/?ref=rp
         - Used to make a packet
         - https://github.com/bwaldvogel/neighbourhood
+4. Learning scapy
+    - https://www.geeksforgeeks.org/how-to-build-a-wifi-scanner-in-python-using-scapy/?ref=rp
+    - ` . venv/bin/activate `
+    - ` pip install scapy `
+    - ARP  
+        - Address Resolution Protocol.
+        - Connects a changing IP address to a (fixed) MAC address.
+        - A directory holds a map of IP addresses and MAC addresses.
+    - "No module named scapy"
+        - When sudo running the python script
+        - ` sudo apt-get install python3-scapy `
+        - Now it works
+        - Prints the devices on the network!
+            - Basically broadcasts a packet and checks who responds
+    - Trying to get the hostname too
