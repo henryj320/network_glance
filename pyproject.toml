@@ -18,8 +18,7 @@ dependencies = [
 # package-dir = {"" = "network_glance"}
 
 [project.scripts]
-# my-script = "network_glance.network_glance_script:run"
-hello-world = "network_glance.network_glance_script:run"
+net-glance = "network_glance.net_glance:run"
 
 [project.optional-dependencies]  # Dependencies not installed by default. Have a variant with other functionalities
 testing = [
