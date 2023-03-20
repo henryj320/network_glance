@@ -1,0 +1,17 @@
+{
+    "20:16:B9:90:2E:4B": ["Be-Quiet-M2", "henry-windows-gaming-pc"],
+    "96:1a:29:79:b9:62": ["Oppo2021", "henry-android-phone"],
+    "C0:33:5E:2E:CC:0B": ["ubuntu-surface-3", "henry-ubuntu-surface-3"],
+    "48:78:5E:70:AF:92": ["kindle-paperwhite", "henry-kindle-paperwhite-10"],
+    "d8:54:b8:d0:00:19": ["kindle-fire", "henry-kindle-fire-hd-8"],
+    "b8:27:eb:e8:b3:dc": ["rpi4b", "henry-armbian-rpi-4-model-b"],
+    "14:5a:fc:48:98:1d": ["Henry-Ideapad-Ubuntu", "henry-ubuntu-ideapad-3"],
+    "08:12:a5:27:21:aa": ["Henry's Echo Dot", "henry-alexa"],
+    "2c:71:ff:81:12:47": ["Henry's Fire TV", "henry-firestick"],
+    
+    "8e:cf:44:27:dd:5f": ["Poppy's S20 FE", "poppy-android-phone"],
+    "a4:83:e7:64:3a:2e": ["Poppy's Macbook Pro", "poppy-macos-macbook"],
+    "a4:08:01:cd:30:9b": ["Poppy's Echo Dot", "poppy-alexa"],
+
+    "10:47:38:62:9a:90": ["Router", "home-router"]
+}

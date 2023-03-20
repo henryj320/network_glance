@@ -63,3 +63,20 @@ Last update: 2023/03/17 22:59
         - Prints the devices on the network!
             - Basically broadcasts a packet and checks who responds
     - Trying to get the hostname too
+        - Struggling. socket.gethostbyaddr() only works on localhost, not any of the others
+        - Can nmap do it?
+            - ` sudo nmap -sn 192.168.1.101/24 `
+                - Nope. Returns IP and MAC address
+5. Getting all the MAC addresses and (current) IPs
+    - Checking whether they match the output of Scapy
+        - Rpi matches
+        - Gaming PC matches
+        - Phone matches
+        - Kindle Paperwhite does not match :/
+        - Surface matches
+    - Detected but missing from the Project board:
+        - 192.168.1.113 - Fire TV
+        - 192.168.1.102 - Henry Alexa
+        - 192.168.1.115 - Poppy alexa
+        - Added all
+    - Added all to "assets/*device_map.json*".

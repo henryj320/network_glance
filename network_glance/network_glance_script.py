@@ -31,7 +31,7 @@ def run():
     #print(output)
 
 
-    target_ip = "192.168.1.1/24"  # Destination IP Address.
+    target_ip = "192.168.1.101/24"  # Destination IP Address.
 
     arp = scapy.ARP(pdst=target_ip)  # Creates an ARP packet.
 
@@ -40,6 +40,10 @@ def run():
     packet = ether/arp  # Stacks the two packets together.
 
     result = scapy.srp(packet, timeout=3)[0]  # "S"end and "R"eceive "P"ackets.
+
+    
+
+
 
 
     # a list of clients, we will fill this in the upcoming loop
@@ -51,7 +55,11 @@ def run():
         # print(socket.gethostbyaddr(received.psrc[0]))
         print(received)
     
-    print(socket.gethostbyaddr("192.168.1.109"))
+    print(socket.gethostbyaddr('192.168.1.101'))  # Works: Henry Ideapad ubuntu
+    print(socket.gethostname())  # Returns the hostname of this computer.
+
+    # proper_ip = socket.gethostbyname(socket.gethostname())
+    # print(socket.gethostbyaddr(proper_ip))  # Works: Henry Ideapad ubuntu
 
     for client in clients:
         print(client)
