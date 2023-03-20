@@ -80,3 +80,9 @@ Last update: 2023/03/17 22:59
         - 192.168.1.115 - Poppy alexa
         - Added all
     - Added all to "assets/*device_map.json*".
+6. Finishing net_glance.
+    - Wrote lookup_hostname().
+    - Made the run() method use it.
+    - Having sets - {True, alias} was messing up. Switched to list.
+    - Code cleanup.
+    - Finished and merged in.
