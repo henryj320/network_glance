@@ -1,0 +1,35 @@
+
+name: network_glance Action
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+
+  workflow_dispatch:  # Allows you to run this workflow manually from the Actions tab.
+
+
+jobs:
+  
+  tests_job:
+    
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9"]
+
+    steps:  
+    - uses: actions/checkout@v3
+    - name: Run tests on the code.
+      run: |
+        pip install --upgrade build
+        python -m build
+        pip install .  # Installs network_glance as a pip library.
+        pytest
+        pycodestyle \
+            network_glance/
+        pydocstyle \
+            network_glance/
+  
