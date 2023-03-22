@@ -26,5 +26,6 @@ testing = [
     "pycodestyle",
     "pydocstyle",
     "tox",
-    "scapy"
+    "scapy",
+    "pytest"
 ]
