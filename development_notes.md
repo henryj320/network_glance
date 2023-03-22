@@ -86,3 +86,12 @@ Last update: 2023/03/17 22:59
     - Having sets - {True, alias} was messing up. Switched to list.
     - Code cleanup.
     - Finished and merged in.
+7. Adding Tox
+    - ` tox quickstart .`
+    - Adding testing
+        - To install net_glance and then run tests on it as if it were a pip module.
+    - Use these commands to view:
+        - ` tox `
+        - ` tox -e testing `
+        - ` tox -e dependencies `
+    - Fixed pycodestyle and pydocstyle issues.
