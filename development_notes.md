@@ -92,6 +92,16 @@ Last update: 2023/03/17 22:59
         - To install net_glance and then run tests on it as if it were a pip module.
     - Use these commands to view:
         - ` tox `
-        - ` tox -e testing `
+        - ` tox -e tests `
         - ` tox -e dependencies `
     - Fixed pycodestyle and pydocstyle issues.
+8. Added a CI/CD pipeline which runs the same checks as ` tox -e tests `.
+9. Starting Device glance
+    - Trying to take a list as an input.
+    - Example command to run it:
+        - ` python network_glance/device_glance.py home-router henry-alexa henry-windows-gaming-pc poppy-alexa henry-armbian-rpi-4-model-b henry-firestick `
+    - sudo running it makes it so that network_glance isnt recognised
+    - ` deactivate `
+    - ` pip install . `
+    - Still not finding network_glance
+    - I'll do it the dull way for now

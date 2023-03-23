@@ -14,7 +14,8 @@ authors = [
 ]
 # repository = "https://github.com/henryj320/network_glance"
 dependencies = [
-    "scapy"
+    "scapy",
+    "click"
 ]
 # package-dir = {"" = "network_glance"}
 
