@@ -105,3 +105,4 @@ Last update: 2023/03/17 22:59
     - ` pip install . `
     - Still not finding network_glance
     - I'll do it the dull way for now
+    - Working device_glance.
