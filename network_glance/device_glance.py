@@ -1,15 +1,22 @@
-# from network_glance import net_glance as net_g  # ` pip install . ` required to work.
+"""Module to return whether given hostnames are currently connected."""
+# from network_glance import net_glance as net_g
 import net_glance as net_g
 import click
 
+
 @click.command()
-@click.argument("devices", required=True, nargs=-1)  # Takes 0+ arguments of hostnames.
+@click.argument("devices", required=True, nargs=-1)  # Takes 0+ hostnames.
+def run(devices: tuple) -> dict:
+    """Check whether given devices are connected to the network or not.
 
-def run(devices: list):
+    Args:
+        devices (tuple): 0 or more devices to check.
 
-    devices_online = net_g.run()  # Returns a dict of all devices connected to the network.
+    Returns:
+        dict: Whether each device is online or not.
+    """
+    devices_online = net_g.run()  # Dict of all devices connected to network.
     devices_online = devices_online["devices"]
-
 
     input_devices = []
     for device in devices:  # Converts the devices tuple to a list.
@@ -17,7 +24,7 @@ def run(devices: list):
 
     personal_devices = []
 
-    for input_device in input_devices:  # Checks whether each input is currently online
+    for input_device in input_devices:  # Checks if inputs are online.
 
         for online_device in devices_online:
 
@@ -32,14 +39,11 @@ def run(devices: list):
 
                 input_devices.remove(input_device)
 
-    
-    for offline_device in input_devices:  # input_devices now only contains offline devices.
+    for offline_device in input_devices:  # Adds each offline device.
         personal_devices.append({
             "name": offline_device,
             "connected": False
         })
-
-
 
     response = {
         "personal_devices": personal_devices
