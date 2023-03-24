@@ -1,6 +1,6 @@
 # network_glance
 
-Last update: 2023/03/17 22:59
+Last update: 2023/03/24 00:42
 <br><br>
 
 ## Development notes for network_glance
@@ -106,3 +106,26 @@ Last update: 2023/03/17 22:59
     - Still not finding network_glance
     - I'll do it the dull way for now
     - Working device_glance.
+10. Moving on to endpoint_glance
+    - ` curl 192.168.1.109:4000/muscle_checker `
+    - https://www.nylas.com/blog/use-python-requests-module-rest-apis/
+    - Can run it with:
+    ` python network_glance/endpoint_glance.py http://192.168.1.109:4000/not_real http://192.168.1.109:4000/muscle_checker `.
+    - Running ` tox `.
+    - ` python -m build `
+    - ` pip install -e . `
+    - ` pip show network_glance `
+    - Failed because device_glance didnt import correctly.
+        - Keep getting module not found errors.
+    - Maybe set up a class to import instead
+        - https://realpython.com/absolute-vs-relative-python-imports/
+    - Or maybe just take the output of net_glance as an input.
+        - Have a parent "main.py" module that imports the others
+            - Gives the output of one as an input to others
+        - Then testing just does imports the same way
+        - Fixing device_glance.py
+            - Now runs with ` sudo python network_glance/device_glance.py {} henry-android-phone `.
+11. Fixing everything
+    - No more importing each within other modules
+        - Instead, main.py imports all of them.
+    - Tested and linted. Should work.

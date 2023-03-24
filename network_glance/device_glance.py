@@ -1,12 +1,7 @@
 """Module to return whether given hostnames are currently connected."""
-# from network_glance import net_glance as net_g
-import net_glance as net_g
-import click
 
 
-@click.command()
-@click.argument("devices", required=True, nargs=-1)  # Takes 0+ hostnames.
-def run(devices: tuple) -> dict:
+def run(network: dict, devices: tuple) -> dict:
     """Check whether given devices are connected to the network or not.
 
     Args:
@@ -15,7 +10,7 @@ def run(devices: tuple) -> dict:
     Returns:
         dict: Whether each device is online or not.
     """
-    devices_online = net_g.run()  # Dict of all devices connected to network.
+    devices_online = network
     devices_online = devices_online["devices"]
 
     input_devices = []
@@ -49,11 +44,8 @@ def run(devices: tuple) -> dict:
         "personal_devices": personal_devices
     }
 
-    print(response)
-
     return response
 
 
 if __name__ == '__main__':
-
     response = run()

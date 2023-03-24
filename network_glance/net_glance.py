@@ -62,4 +62,4 @@ def lookup_hostname(json_file: str, mac_address: str) -> list:
 
 
 if __name__ == '__main__':
-    print(run())
+    run()
