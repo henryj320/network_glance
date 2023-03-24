@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="master.css">
+        <script>
+
+            axios.get("http://192.168.1.101:4000/monitor/net_glance").then((response) => {
+
+                var network_table = document.getElementById("networkTable")
+
+                for (var x = 0; x < response.data.data.devices.length; x++) {
+
+                    var row = network_table.insertRow(x + 1);
+
+                    var cell1 = row.insertCell(0);
+                    cell1.innerHTML = response.data.data.devices[x]["name"]
+
+                    var cell2 = row.insertCell(1);
+                    cell2.innerHTML = response.data.data.devices[x]["ip"]
+
+                    var cell3 = row.insertCell(2);
+                    cell3.innerHTML = response.data.data.devices[x]["mac"]
+
+                }
+            })
+
+
+            axios.get("http://192.168.1.101:4000/monitor/dev_glance").then((response) => {
+
+                var personal_devices_table = document.getElementById("personalDevicesTable")
+
+                for (var x = 0; x < response.data.data.personal_devices.length; x++) {
+                    console.log(x)
+
+                    var row = personal_devices_table.insertRow(x + 1);
+
+                    var cell1 = row.insertCell(0);
+                    cell1.innerHTML = response.data.data.personal_devices[x]["name"]
+
+                    var cell2 = row.insertCell(1);
+                    cell2.innerHTML = response.data.data.personal_devices[x]["ip"]
+
+                    var cell3 = row.insertCell(2);
+                    cell3.innerHTML = response.data.data.personal_devices[x]["connected"]
+
+                }
+            })
+            
+        </script>
+    </head>
+    <body>
+        <br><br>
+
+        <div id="networkDiv">
+            <h1>Network Table</h1>
+            <p>A list of devices currently connected to the Wi-Fi network.</p>
+
+            <table id="networkTable">
+                <tr>
+                    <th>Name</th>
+                    <th>IP</th>
+                    <th>MAC Address</th>
+                </tr>
+            </table>
+        </div>
+        <br><br>
+
+        <div id="personalDevicesDiv">
+            <h1>Personal Devices Table</h1>
+            <p>Shows the status of personal devices</p>
+
+            <table id="personalDevicesTable">
+                <tr>
+                    <th>Name</th>
+                    <th>IP</th>
+                    <th>Status</th>
+                </tr>
+            </table>
+        </div>
+
+        <br><br>
+    </body>
+</html>
