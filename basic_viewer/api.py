@@ -45,6 +45,7 @@ class End_Glance(Resource):
 
     def get(self):
         """GET method for end_glance."""
+        
         endpoints = ("http://192.168.1.109:4000/not_real",
                      "http://192.168.1.109:4000/muscle_checker")
 
