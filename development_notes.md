@@ -172,5 +172,10 @@ Last update: 2023/03/24 00:42
         - For some reason, Dev_glance is not returning the correct responses.
             - Changing from Tuple to array
             - Tried adding it as a global variable
-            - Just do it using the network table instead
-
+    - Just do it using the network table instead
+        - Checks if online device == personal device
+        - If not, set to offline
+    - Added the endpoints table
+        - Same issue. Its saying one is offline for some reason
+        - Its because of the "if true bit"
+    - Added a really cool loading screen!

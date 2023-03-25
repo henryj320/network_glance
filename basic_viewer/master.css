@@ -3,6 +3,10 @@
     color: #666666;
 }
 
+body {
+    background: rgb(226, 226, 226);
+}
+
 div {
     margin-left: 10%;
     width: 80%;
@@ -28,8 +32,113 @@ table td {
     padding: 2%;
     width: 33%;
     text-align: center;
+    font-size: 1.2vw;
+    background: white;
 }
 
 table td:nth-child(1) {
     text-align: left;
 }
+
+#endpointsTable:nth-last-col {
+    color: red;
+    width: 10%;
+}
+
+
+#personalDevicesTable td:nth-child(1) {
+    width: 30%
+}
+
+#personalDevicesTable td:nth-child(2) {
+    width: 45%;
+    text-align: left;
+}
+
+#personalDevicesTable td:nth-child(3) {
+    width: 20%;
+}
+
+
+#endpointsTable td:nth-child(1) {
+    width: 30%
+}
+
+#endpointsTable td:nth-child(2) {
+    width: 45%;
+    text-align: left;
+}
+
+#endpointsTable td:nth-child(3) {
+    width: 20%;
+}
+
+
+#loadingDiv {
+    width: 80%;
+    animation: fadein 1s;
+}
+
+
+#loading {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25vw;
+    animation: rotation 2.5s infinite;
+    transform-origin: center;
+    width: 19vw;
+    /* rotate(0.05turn); */
+    /* animation: slideInFromLeft 1s ease-out 0s 1; */
+    /* animation: fadein 2s; */
+}
+
+#loadingAlt {
+    margin: auto;
+    margin-top: 20%;
+    border: 4vw solid white; /* Light grey */
+    border-right: 4vw solid #48A2F1; /* Blue */
+    border-radius: 50%;
+    width: 20vw;
+    height: 20vw;
+    animation: rotation 2.5s infinite ;
+}
+
+#loadingAltTwo {
+
+    /* border: 12px double black; */
+    border: 1.8vw solid #48A2F1;
+    border-right: 1.8vw solid #3e8ace; /* Blue */
+    border-radius: 50%;
+    width: 7vw;
+    height: 7vw;
+    animation: rotation 2.5s infinite reverse ;
+}
+
+#allTables {
+    display: none;
+    animation: fadein 1s;
+}
+
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes fadein {
+    from { opacity: 0}
+    to   { opacity: 1}
+  }
