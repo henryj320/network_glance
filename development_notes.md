@@ -125,7 +125,58 @@ Last update: 2023/03/24 00:42
         - Then testing just does imports the same way
         - Fixing device_glance.py
             - Now runs with ` sudo python network_glance/device_glance.py {} henry-android-phone `.
-11. Fixing everything
+11. Fixing everything into a main.py module
     - No more importing each within other modules
         - Instead, main.py imports all of them.
     - Tested and linted. Should work.
+12. Making the basic viewer
+    - Axios calls are the same in vanilla JS.
+    - Added "viewer" requirements to pyproject.toml
+    - ` python ./basic_viewer.api.py `
+        - When accessing, returns Operation not permitted
+    - ` sudo python ./basic_viewer.api.py `
+        - No Module named 'flask'
+            - Is it cused by root not having the python path
+    - Looks like sudo uses a different instance of python
+        - ` python3 -c "import sys; print(sys.path)" `
+    - Tried elevating to root
+        - ` su root `.
+            - Can't get my password...
+            - ` sudo usermod -U root `
+            - ` chmod u+s /bin/su `
+    - ` which python `
+        - /home/henry/anaconda3/lib/python3.9
+        - Python 3.9.13
+    - ` sudo which python `
+        - /usr/bin/python
+        - Python 3.10.6
+    - ` sudo alias python='/home/henry/anaconda3/lib/python3.9' `
+        - Can use ` unalias ` to remove it
+        - alias: Command not found
+            - ` sudo apt-get install bash `
+    - ` . ~/.bashrc `
+    - ` alias python='/usr/bin/python' `
+        - Setting it to the old one
+        - ` pip install . `
+        - ` unalias python `
+        - Didn't fix the issue
+        - ` python -m pip install .[viewer] `
+        - ` python -m pip list `
+        - No module named Flask.
+        - ` sudo pip list `
+            - Doesn't have it
+        - ` sudo pip install flask `
+            - That worked
+        - Can now connect to the server
+            - ` sudo python ./basic_viewer/api.py `
+        - For some reason, Dev_glance is not returning the correct responses.
+            - Changing from Tuple to array
+            - Tried adding it as a global variable
+    - Just do it using the network table instead
+        - Checks if online device == personal device
+        - If not, set to offline
+    - Added the endpoints table
+        - Same issue. Its saying one is offline for some reason
+        - Its because of the "if true bit"
+    - Added a really cool loading screen!
+    - toxing

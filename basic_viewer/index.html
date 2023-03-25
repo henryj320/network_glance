@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="master.css">
+    <script>
+
+        // The devices that we want to know if they are online or offline.
+        var personal_devices = ["henry-armbian-rpi-4-model-b", "henry-windows-gaming-pc", "henry-ubuntu-surface-3"]
+
+        // Contains the names, IPs and MAC addresses of all devices connected to the network.
+        var network_names = []
+        var network_ips = []
+        var network_macs = []
+
+        // Contains the names and IPs of the given personal devices.
+        var personal_devices_names = []
+        var personal_devices_ips = []
+        var offline_devices = []
+
+
+        // Calls net_glance to get the devices connected to the network.
+        axios.get("http://192.168.1.101:4000/monitor/net_glance").then((response) => {
+
+            var network_table = document.getElementById("networkTable")
+
+            // For each device on the network.
+            for (var x = 0; x < response.data.data.devices.length; x++) {
+
+                // Stored to use later.
+                network_names.push(response.data.data.devices[x]["name"])
+                network_ips.push(response.data.data.devices[x]["ip"])
+                network_macs.push(response.data.data.devices[x]["mac"])
+
+
+                var row = network_table.insertRow(x + 1);
+
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = response.data.data.devices[x]["name"]
+
+                var cell2 = row.insertCell(1);
+                cell2.innerHTML = response.data.data.devices[x]["ip"]
+
+                var cell3 = row.insertCell(2);
+                cell3.innerHTML = response.data.data.devices[x]["mac"]
+            }
+
+
+            var personal_devices_table = document.getElementById("personalDevicesTable")
+
+            // Checks whether each of the personal_devices are online.
+            for (var x = 0; x < personal_devices.length; x++) {
+
+                var online = false;
+                for (var y = 0; y < network_names.length; y++) {
+                    if (network_names[y] == personal_devices[x]) {
+                        personal_devices_names.push(network_names[y])
+                        personal_devices_ips.push(network_ips[y])
+                        online = true;
+                    }
+                }
+
+                // If personal_device is not online.
+                if (online == false) {
+                    offline_devices.push(personal_devices[x])
+                }
+            }
+
+
+            // Adds each of the online devices to the Personal Devices Table.
+            for (var x = 0; x < personal_devices_names.length; x++) {
+
+                var row = personal_devices_table.insertRow(x + 1);
+
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = personal_devices_names[x]
+
+                var cell2 = row.insertCell(1);
+                cell2.innerHTML = personal_devices_ips[x]
+
+                var cell3 = row.insertCell(2);
+                cell3.innerHTML = "&#9989;"
+
+            }
+
+
+            // Adds each of the offline devices.
+            for (var x = 0; x < offline_devices.length; x++) {
+
+                var row = personal_devices_table.insertRow(personal_devices_names.length + 1);
+
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = offline_devices[x]
+
+                var cell2 = row.insertCell(1);
+                cell2.innerHTML = "-"
+
+                var cell3 = row.insertCell(2);
+                cell3.innerHTML = "&#10060;"
+
+            }
+
+            all_tables = document.getElementById("allTables");
+            all_tables.style = "display: block"
+
+            loading = document.getElementById("loadingDiv");
+            loading.style = "display:none"
+        })
+
+
+        axios.get("http://192.168.1.101:4000/monitor/end_glance").then((response) => {
+            console.log(response)
+
+            var endpoints_table = document.getElementById("endpointsTable")
+
+            // For each device on the network.
+            for (var x = 0; x < response.data.data.endpoints.length; x++) {
+
+                var online = "&#10060;"
+                if (response.data.data.endpoints[x]["online"]) {
+                    online = "&#9989;"
+                }
+
+
+                var row = endpoints_table.insertRow(x + 1);
+
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = response.data.data.endpoints[x]["name"]
+
+                var cell2 = row.insertCell(1);
+                cell2.innerHTML = response.data.data.endpoints[x]["url"]
+
+                var cell3 = row.insertCell(2);
+                cell3.innerHTML = online
+            }
+        })
+
+    </script>
+</head>
+
+<body>
+    <br><br>
+    <div id="loadingDiv">
+        <div id="loadingAlt"><div id="loadingAltTwo"></div></div>
+    </div>
+
+    
+
+    <div id="allTables">
+        <div id="networkDiv">
+            <h1>Network Table</h1>
+            <p>A list of devices currently connected to the Wi-Fi network.</p>
+
+            <table id="networkTable">
+                <tr>
+                    <th>Name</th>
+                    <th>IP</th>
+                    <th>MAC Address</th>
+                </tr>
+            </table>
+        </div>
+        <br><br>
+
+        <div id="personalDevicesDiv">
+            <h1>Personal Devices Table</h1>
+            <p>Shows the status of personal devices.</p>
+
+            <table id="personalDevicesTable">
+                <tr>
+                    <th>Name</th>
+                    <th>IP</th>
+                    <th>Status</th>
+                </tr>
+            </table>
+        </div>
+        <br><br>
+
+
+        <div id="endpointsDiv">
+            <h1>Endpoints Table</h1>
+            <p>Shows the status of endpoints.</p>
+
+            <table id="endpointsTable">
+                <tr>
+                    <th>Name</th>
+                    <th>URL</th>
+                    <th class="statusCol">Status</th>
+                </tr>
+            </table>
+        </div>
+
+        <br><br>
+    </div>
+</body>
+
+</html>

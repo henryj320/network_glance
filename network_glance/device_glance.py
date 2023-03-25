@@ -1,11 +1,11 @@
 """Module to return whether given hostnames are currently connected."""
 
 
-def run(network: dict, devices: tuple) -> dict:
+def run(network: dict, devices: list) -> dict:
     """Check whether given devices are connected to the network or not.
 
     Args:
-        devices (tuple): 0 or more devices to check.
+        devices (list): 0 or more devices to check.
 
     Returns:
         dict: Whether each device is online or not.
