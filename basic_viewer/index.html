@@ -6,25 +6,33 @@
     <link rel="stylesheet" href="master.css">
     <script>
 
-        // contains the names, IPs and MAC addresses of all devices connected to the network.
+        // The devices that we want to know if they are online or offline.
+        var personal_devices = ["henry-armbian-rpi-4-model-b", "henry-windows-gaming-pc", "henry-ubuntu-surface-3"]
+
+        // Contains the names, IPs and MAC addresses of all devices connected to the network.
         var network_names = []
         var network_ips = []
         var network_macs = []
 
+        // Contains the names and IPs of the given personal devices.
         var personal_devices_names = []
         var personal_devices_ips = []
         var offline_devices = []
 
 
+        // Calls net_glance to get the devices connected to the network.
         axios.get("http://192.168.1.101:4000/monitor/net_glance").then((response) => {
 
             var network_table = document.getElementById("networkTable")
 
+            // For each device on the network.
             for (var x = 0; x < response.data.data.devices.length; x++) {
 
+                // Stored to use later.
                 network_names.push(response.data.data.devices[x]["name"])
                 network_ips.push(response.data.data.devices[x]["ip"])
                 network_macs.push(response.data.data.devices[x]["mac"])
+
 
                 var row = network_table.insertRow(x + 1);
 
@@ -36,16 +44,10 @@
 
                 var cell3 = row.insertCell(2);
                 cell3.innerHTML = response.data.data.devices[x]["mac"]
-
             }
 
 
-
-
             var personal_devices_table = document.getElementById("personalDevicesTable")
-
-            var personal_devices = ["henry-armbian-rpi-4-model-b", "henry-windows-gaming-pc", "henry-ubuntu-surface-3"]
-
 
             // Checks whether each of the personal_devices are online.
             for (var x = 0; x < personal_devices.length; x++) {
@@ -66,11 +68,8 @@
                 }
             }
 
-            console.log(personal_devices_names)
-            console.log(offline_devices)
 
-
-
+            // Adds each of the online devices to the Personal Devices Table.
             for (var x = 0; x < personal_devices_names.length; x++) {
 
                 var row = personal_devices_table.insertRow(x + 1);
@@ -86,6 +85,8 @@
 
             }
 
+
+            // Adds each of the offline devices.
             for (var x = 0; x < offline_devices.length; x++) {
 
                 var row = personal_devices_table.insertRow(personal_devices_names.length + 1);
@@ -101,7 +102,6 @@
 
             }
         })
-
 
     </script>
 </head>
