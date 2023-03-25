@@ -184,3 +184,7 @@ Last update: 2023/03/24 00:42
         - ` fuser -k 4000/tcp `
     - Trying to add a black border to the loading bar.
         - Looks good!
+13. Adding last online
+    - Made it so device_map updates last_online.json for any devices that are online.
+    - Making net_glance do the same.
+    

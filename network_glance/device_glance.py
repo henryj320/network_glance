@@ -1,4 +1,10 @@
 """Module to return whether given hostnames are currently connected."""
+import datetime
+import json
+
+
+
+json_file = "./network_glance/assets/last_online.json"
 
 
 def run(network: dict, devices: list) -> dict:
@@ -28,7 +34,8 @@ def run(network: dict, devices: list) -> dict:
                 personal_devices.append({
                     "name": online_device["name"],
                     "ip": online_device["ip"],
-                    "connected": True
+                    "connected": True,
+                    "last_online": str(datetime.datetime.now())
                     # "mac": online_device["mac"]
                 })
 
@@ -37,7 +44,9 @@ def run(network: dict, devices: list) -> dict:
     for offline_device in input_devices:  # Adds each offline device.
         personal_devices.append({
             "name": offline_device,
-            "connected": False
+            "connected": False, 
+            # Sets last_online to recorded in last_online.json
+            "last_online": get_last_online(json_file, False, offline_device)
         })
 
     response = {
@@ -46,6 +55,50 @@ def run(network: dict, devices: list) -> dict:
 
     return response
 
+def get_last_online(json_file: str, connected: bool, alias: str) -> str:
+
+    # Loads the last online .json file.
+    last_online_file = open(json_file, "r")
+    last_online_mappings = json.load(last_online_file)
+
+
+
+    if connected:
+        last_online_file = open(json_file, "w")
+
+        current_time = datetime.datetime.now()
+
+        # Sets online devices last_online as now.
+        last_online_mappings[alias][0] = str(current_time)
+
+        # last_online = last_online_mappings[mac_address][0]
+
+        json.dump(last_online_mappings, last_online_file, indent=2)
+
+        print("Last online for " + alias + " was updated.")
+
+        return str(current_time)
+    
+    try:
+        last_online = last_online_mappings[alias][0]
+    except KeyError:  # If MAC address not found in last_online.json.
+        return "0000-00-00 00:00:01"
+    
+    return str(last_online)
+
+
+
+    # print(last_online)
+
+    # If connected = True
+        # Returns now
+        # Updates the file
+    # Else, returns time in file
+
+    return
+
 
 if __name__ == '__main__':
-    response = run()
+    # response = run()
+
+    get_last_online(json_file, True, "20:16:b9:90:2e:4b")
