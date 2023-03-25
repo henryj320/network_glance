@@ -33,7 +33,8 @@ def run() -> dict:
 
         if hostname_lookup[1] != "Uknown Device":
             # Updates the last_online of all online devices.
-            update_last_online("./network_glance/assets/last_online.json", hostname_lookup[1])
+            update_last_online("./network_glance/assets/last_online.json",
+                               hostname_lookup[1])
 
     return_dict = {
         "devices": clients
@@ -66,27 +67,28 @@ def lookup_hostname(json_file: str, mac_address: str) -> list:
         return [False, "Uknown Device"]
 
 
-def update_last_online(json_file, alias: str) -> bool:
+def update_last_online(json_file: str, alias: str) -> bool:
+    """Update last_online.json with devices currently online.
 
-    # Loads the last online .json file.
+    Args:
+        json_file (str): The path of last_online.json.
+        alias (str): The device's alias to update.
+
+    Returns:
+        bool: Success or Fail of update
+    """
     last_online_file = open(json_file, "r")
     last_online_mappings = json.load(last_online_file)
-
-
 
     current_time = datetime.datetime.now()
 
     last_online_file = open(json_file, "w")
-
     # Sets online devices last_online as now.
     last_online_mappings[alias][0] = str(current_time)
-
     json.dump(last_online_mappings, last_online_file, indent=2)
-
-
     print("Last online for " + alias + " was updated.")
 
-    return
+    return True
 
 
 if __name__ == '__main__':

@@ -3,7 +3,6 @@ import datetime
 import json
 
 
-
 json_file = "./network_glance/assets/last_online.json"
 
 
@@ -44,7 +43,7 @@ def run(network: dict, devices: list) -> dict:
     for offline_device in input_devices:  # Adds each offline device.
         personal_devices.append({
             "name": offline_device,
-            "connected": False, 
+            "connected": False,
             # Sets last_online to recorded in last_online.json
             "last_online": get_last_online(json_file, False, offline_device)
         })
@@ -55,13 +54,21 @@ def run(network: dict, devices: list) -> dict:
 
     return response
 
-def get_last_online(json_file: str, connected: bool, alias: str) -> str:
 
+def get_last_online(json_file: str, connected: bool, alias: str) -> str:
+    """Return the time that alias was last online.
+
+    Args:
+        json_file (str): Path to last_online.json.
+        connected (bool): True or False whether the device is online or not.
+        alias (str): Alias of the device.
+
+    Returns:
+        str: Last online time.
+    """
     # Loads the last online .json file.
     last_online_file = open(json_file, "r")
     last_online_mappings = json.load(last_online_file)
-
-
 
     if connected:
         last_online_file = open(json_file, "w")
@@ -78,24 +85,13 @@ def get_last_online(json_file: str, connected: bool, alias: str) -> str:
         print("Last online for " + alias + " was updated.")
 
         return str(current_time)
-    
+
     try:
         last_online = last_online_mappings[alias][0]
     except KeyError:  # If MAC address not found in last_online.json.
         return "0000-00-00 00:00:01"
-    
+
     return str(last_online)
-
-
-
-    # print(last_online)
-
-    # If connected = True
-        # Returns now
-        # Updates the file
-    # Else, returns time in file
-
-    return
 
 
 if __name__ == '__main__':
