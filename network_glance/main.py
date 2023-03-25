@@ -14,7 +14,8 @@ def run():
 
     print("")
     print("Status of Personal Devices:")
-    personal_devices = ["henry-armbian-rpi-4-model-b", "henry-android-phone", "henry-windows-gaming-pc"]
+    personal_devices = ["henry-armbian-rpi-4-model-b",
+                        "henry-android-phone", "henry-windows-gaming-pc"]
     print(run_dev_glance(network, personal_devices))
 
     print("")
