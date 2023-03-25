@@ -180,3 +180,7 @@ Last update: 2023/03/24 00:42
         - Its because of the "if true bit"
     - Added a really cool loading screen!
     - toxing
+    - Ending with
+        - ` fuser -k 4000/tcp `
+    - Trying to add a black border to the loading bar.
+        - Looks good!
