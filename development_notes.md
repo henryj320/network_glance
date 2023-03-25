@@ -171,4 +171,6 @@ Last update: 2023/03/24 00:42
             - ` sudo python ./basic_viewer/api.py `
         - For some reason, Dev_glance is not returning the correct responses.
             - Changing from Tuple to array
+            - Tried adding it as a global variable
+            - Just do it using the network table instead
 

@@ -1,84 +1,156 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <link rel="stylesheet" href="master.css">
-        <script>
 
-            axios.get("http://192.168.1.101:4000/monitor/net_glance").then((response) => {
+<head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="master.css">
+    <script>
 
-                var network_table = document.getElementById("networkTable")
+        // contains the names, IPs and MAC addresses of all devices connected to the network.
+        var network_names = []
+        var network_ips = []
+        var network_macs = []
 
-                for (var x = 0; x < response.data.data.devices.length; x++) {
+        var personal_devices_names = []
+        var personal_devices_ips = []
+        var offline_devices = []
 
-                    var row = network_table.insertRow(x + 1);
 
-                    var cell1 = row.insertCell(0);
-                    cell1.innerHTML = response.data.data.devices[x]["name"]
+        axios.get("http://192.168.1.101:4000/monitor/net_glance").then((response) => {
 
-                    var cell2 = row.insertCell(1);
-                    cell2.innerHTML = response.data.data.devices[x]["ip"]
+            var network_table = document.getElementById("networkTable")
 
-                    var cell3 = row.insertCell(2);
-                    cell3.innerHTML = response.data.data.devices[x]["mac"]
+            for (var x = 0; x < response.data.data.devices.length; x++) {
 
+                network_names.push(response.data.data.devices[x]["name"])
+                network_ips.push(response.data.data.devices[x]["ip"])
+                network_macs.push(response.data.data.devices[x]["mac"])
+
+                var row = network_table.insertRow(x + 1);
+
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = response.data.data.devices[x]["name"]
+
+                var cell2 = row.insertCell(1);
+                cell2.innerHTML = response.data.data.devices[x]["ip"]
+
+                var cell3 = row.insertCell(2);
+                cell3.innerHTML = response.data.data.devices[x]["mac"]
+
+            }
+
+
+
+
+            var personal_devices_table = document.getElementById("personalDevicesTable")
+
+            var personal_devices = ["henry-armbian-rpi-4-model-b", "henry-windows-gaming-pc", "henry-ubuntu-surface-3"]
+
+
+            // Checks whether each of the personal_devices are online.
+            for (var x = 0; x < personal_devices.length; x++) {
+
+                var online = false;
+                for (var y = 0; y < network_names.length; y++) {
+                    console.log(network_names[y])
+                    if (network_names[y] == personal_devices[x]) {
+                        personal_devices_names.push(network_names[y])
+                        personal_devices_ips.push(network_ips[y])
+                        online = true;
+                    }
                 }
-            })
 
-
-            axios.get("http://192.168.1.101:4000/monitor/dev_glance").then((response) => {
-
-                var personal_devices_table = document.getElementById("personalDevicesTable")
-
-                for (var x = 0; x < response.data.data.personal_devices.length; x++) {
-                    console.log(x)
-
-                    var row = personal_devices_table.insertRow(x + 1);
-
-                    var cell1 = row.insertCell(0);
-                    cell1.innerHTML = response.data.data.personal_devices[x]["name"]
-
-                    var cell2 = row.insertCell(1);
-                    cell2.innerHTML = response.data.data.personal_devices[x]["ip"]
-
-                    var cell3 = row.insertCell(2);
-                    cell3.innerHTML = response.data.data.personal_devices[x]["connected"]
-
+                // If personal_device is not online.
+                if (online == false) {
+                    offline_devices.push(personal_devices[x])
                 }
-            })
-            
-        </script>
-    </head>
-    <body>
-        <br><br>
+            }
 
-        <div id="networkDiv">
-            <h1>Network Table</h1>
-            <p>A list of devices currently connected to the Wi-Fi network.</p>
+            console.log(personal_devices_names)
+            console.log(offline_devices)
 
-            <table id="networkTable">
-                <tr>
-                    <th>Name</th>
-                    <th>IP</th>
-                    <th>MAC Address</th>
-                </tr>
-            </table>
-        </div>
-        <br><br>
 
-        <div id="personalDevicesDiv">
-            <h1>Personal Devices Table</h1>
-            <p>Shows the status of personal devices</p>
 
-            <table id="personalDevicesTable">
-                <tr>
-                    <th>Name</th>
-                    <th>IP</th>
-                    <th>Status</th>
-                </tr>
-            </table>
-        </div>
+            for (var x = 0; x < personal_devices_names.length; x++) {
 
-        <br><br>
-    </body>
+                var row = personal_devices_table.insertRow(x + 1);
+
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = personal_devices_names[x]
+
+                var cell2 = row.insertCell(1);
+                cell2.innerHTML = personal_devices_ips[x]
+
+                var cell3 = row.insertCell(2);
+                cell3.innerHTML = "Online"
+
+            }
+
+            for (var x = 0; x < offline_devices.length; x++) {
+
+                var row = personal_devices_table.insertRow(personal_devices_names.length + 1);
+
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = offline_devices[x]
+
+                var cell2 = row.insertCell(1);
+                cell2.innerHTML = "-"
+
+                var cell3 = row.insertCell(2);
+                cell3.innerHTML = "Offline"
+
+            }
+        })
+
+
+    </script>
+</head>
+
+<body>
+    <br><br>
+
+    <div id="networkDiv">
+        <h1>Network Table</h1>
+        <p>A list of devices currently connected to the Wi-Fi network.</p>
+
+        <table id="networkTable">
+            <tr>
+                <th>Name</th>
+                <th>IP</th>
+                <th>MAC Address</th>
+            </tr>
+        </table>
+    </div>
+    <br><br>
+
+    <div id="personalDevicesDiv">
+        <h1>Personal Devices Table</h1>
+        <p>Shows the status of personal devices.</p>
+
+        <table id="personalDevicesTable">
+            <tr>
+                <th>Name</th>
+                <th>IP</th>
+                <th>Status</th>
+            </tr>
+        </table>
+    </div>
+    <br><br>
+
+
+    <div id="endpointsDiv">
+        <h1>Endpoints Table</h1>
+        <p>Shows the status of endpoints.</p>
+
+        <table id="endpointsTable">
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+            </tr>
+        </table>
+    </div>
+
+    <br><br>
+</body>
+
 </html>

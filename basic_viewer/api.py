@@ -8,6 +8,7 @@ import network_glance.device_glance as dev_g
 
 import network_glance.endpoint_glance as end_g
 
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -28,7 +29,7 @@ class Dev_Glance(Resource):
 
     def get(self):
 
-        personal_devices = ("henry-armbian-rpi-4-model-b", "henry-windows-gaming-pc", "henry-ubuntu-surface-3", "home-router")
+        personal_devices = ["henry-armbian-rpi-4-model-b", "henry-windows-gaming-pc", "henry-ubuntu-surface-3"]
         data = dev_g.run(net_g.run(), personal_devices)
 
         return {'data': data}, 200  # 200 OK code.
