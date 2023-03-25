@@ -30,7 +30,9 @@ jobs:
         pip install .  # Installs network_glance as a pip library.
         pytest
         pycodestyle \
-            network_glance/
+          network_glance/ \
+          basic_viewer/
         pydocstyle \
-            network_glance/
+          network_glance/ \
+          basic_viewer/
   
