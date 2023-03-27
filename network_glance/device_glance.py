@@ -75,23 +75,28 @@ def get_last_online(json_file: str, connected: bool, alias: str) -> str:
 
         current_time = datetime.datetime.now()
 
-        # Sets online devices last_online as now.
-        last_online_mappings[alias][0] = str(current_time)
-
-        # last_online = last_online_mappings[mac_address][0]
-
         json.dump(last_online_mappings, last_online_file, indent=2)
 
-        print("Last online for " + alias + " was updated.")
+        for index, value in enumerate(last_online_mappings["lastOnline"]):
 
-        return str(current_time)
+            if value["name"] == alias:
+                last_online_mappings["lastOnline"][index]["lastOnline"] = str(current_time)
 
+                json.dump(last_online_mappings, last_online_file, indent=2)
+                print("Last online for " + alias + " was updated.")
+
+                return current_time
+
+    # Find last online if device is offline.
     try:
-        last_online = last_online_mappings[alias][0]
+        # Finds the device details.
+        for index, value in enumerate(last_online_mappings["lastOnline"]):
+            if value["name"] == alias:
+                return str(last_online_mappings["lastOnline"][index]["lastOnline"])
+
     except KeyError:  # If MAC address not found in last_online.json.
         return "0000-00-00 00:00:01"
 
-    return str(last_online)
 
 
 if __name__ == '__main__':

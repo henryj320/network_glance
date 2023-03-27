@@ -1,44 +1,56 @@
 {
-  "henry-windows-gaming-pc": [
-    "2023-03-25 23:36:36.752627"
-  ],
-  "henry-android-phone": [
-    "2023-03-25 22:58:39.129626"
-  ],
-  "henry-ubuntu-surface-3": [
-    "2023-03-25 22:58:19.129626"
-  ],
-  "henry-kindle-paperwhite-10": [
-    "0000-00-00 00:00:01"
-  ],
-  "henry-kindle-fire-hd-8": [
-    "0000-00-00 00:00:01"
-  ],
-  "henry-armbian-rpi-4-model-b": [
-    "2023-03-25 23:36:36.752829"
-  ],
-  "henry-ubuntu-ideapad-3": [
-    "0000-00-00 00:00:01"
-  ],
-  "henry-alexa": [
-    "2023-03-25 23:36:36.752444"
-  ],
-  "henry-firestick": [
-    "0000-00-00 00:00:01"
-  ],
-  "poppy-android-phone": [
-    "0000-00-00 00:00:01"
-  ],
-  "poppy-macos-macbook": [
-    "0000-00-00 00:00:01"
-  ],
-  "poppy-alexa": [
-    "2023-03-25 23:36:36.752252"
-  ],
-  "home-router": [
-    "2023-03-25 23:36:36.751945"
-  ],
-  "test": [
-    "1234"
+  "lastOnline": [
+    {
+      "name": "henry-windows-gaming-pc",
+      "lastOnline": "2023-03-28 00:06:22.435347"
+    },
+    {
+      "name": "henry-android-phone",
+      "lastOnline": "2023-03-28 00:06:22.436330"
+    },
+    {
+      "name": "henry-ubuntu-surface-3",
+      "lastOnline": "2023-03-25 22:58:19.129626"
+    },
+    {
+      "name": "henry-kindle-paperwhite-10",
+      "lastOnline": "0000-00-00 00:00:01"
+    },
+    {
+      "name": "henry-kindle-fire-hd-8",
+      "lastOnline": "0000-00-00 00:00:01"
+    },
+    {
+      "name": "henry-armbian-rpi-4-model-b",
+      "lastOnline": "2023-03-28 00:06:22.436721"
+    },
+    {
+      "name": "henry-ubuntu-ideapad-3",
+      "lastOnline": "0000-00-00 00:00:01"
+    },
+    {
+      "name": "henry-alexa",
+      "lastOnline": "2023-03-28 00:06:22.434834"
+    },
+    {
+      "name": "henry-firestick",
+      "lastOnline": "0000-00-00 00:00:01"
+    },
+    {
+      "name": "poppy-android-phone",
+      "lastOnline": "0000-00-00 00:00:01"
+    },
+    {
+      "name": "poppy-macos-macbook",
+      "lastOnline": "0000-00-00 00:00:01"
+    },
+    {
+      "name": "poppy-alexa",
+      "lastOnline": "2023-03-28 00:06:22.435838"
+    },
+    {
+      "name": "home-router",
+      "lastOnline": "2023-03-28 00:06:22.434166"
+    }
   ]
 }

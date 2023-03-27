@@ -8,7 +8,7 @@ description = "Script to output various details about the network and hardware c
 readme = "README.md"
 requires-python = ">=3.9"
 license  = { text = "GNU General Public License v3.0"}
-version = "0.0.2"
+version = "0.0.3"
 authors = [
     { name = "Henry James", email = "henryj320@gmail.com" }
 ]
@@ -21,8 +21,8 @@ dependencies = [
 ]
 # package-dir = {"" = "network_glance"}
 
-[project.scripts]
-net-glance = "network_glance.net_glance:run"
+# [project.scripts]
+# net-glance = "network_glance.net_glance:run"
 
 [project.optional-dependencies]  # Dependencies not installed by default. Have a variant with other functionalities
 testing = [

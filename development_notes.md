@@ -1,6 +1,6 @@
 # network_glance
 
-Last update: 2023/03/24 00:42
+Last update: 2023/03/28 00:12
 <br><br>
 
 ## Development notes for network_glance
@@ -207,5 +207,18 @@ Last update: 2023/03/24 00:42
             - Doesnt work pushing "1" either
     - Works when inside the fetch statement. So weird...
     - Code cleanup required
-    - TODO: update net_glance and device_glance to use the new format
+    - Running the website doesnt update last_online. Probably linked to the JSON file path being wrong when hosting from the server. Add a parameter
+        - Fixed that
+    - Update net_glance and device_glance to use the new format
+        - Updated net_glance#
+        - Updated device_glance
+        - Checking it updates when website runs
+            - TypeError: run() takes 0 positional arguments but 1 was given
+                - ` pip install . `
+                - Didnt work
+                - ` python -m build `
+                - `python install . `
+                - `python install .[testing] `
+                - `python install .[viewer] `
+                - Still giving the error
 

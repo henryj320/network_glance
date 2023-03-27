@@ -4,10 +4,13 @@ import json
 import scapy.all as scapy
 
 json_file = "./network_glance/assets/device_map.json"
+last_online_file = "./network_glance/assets/last_online.json"
 
+def run(last_online_file: str) -> dict:
+    """Gather details on each device connected to the network.
 
-def run() -> dict:
-    """Gather details on each device connected to the network..
+    Args:
+        last_online_file (str): The relative path to the last_online.json file.
 
     Returns:
         dict: A dict containing the hostname, IP and MAC address
@@ -33,7 +36,7 @@ def run() -> dict:
 
         if hostname_lookup[1] != "Uknown Device":
             # Updates the last_online of all online devices.
-            update_last_online("./network_glance/assets/last_online.json",
+            update_last_online(last_online_file,
                                hostname_lookup[1])
 
     return_dict = {
@@ -83,13 +86,21 @@ def update_last_online(json_file: str, alias: str) -> bool:
     current_time = datetime.datetime.now()
 
     last_online_file = open(json_file, "w")
-    # Sets online devices last_online as now.
-    last_online_mappings[alias][0] = str(current_time)
-    json.dump(last_online_mappings, last_online_file, indent=2)
-    print("Last online for " + alias + " was updated.")
 
-    return True
+    for index, value in enumerate(last_online_mappings["lastOnline"]):
+
+        if value["name"] == alias:
+            last_online_mappings["lastOnline"][index]["lastOnline"] = str(current_time)
+
+            json.dump(last_online_mappings, last_online_file, indent=2)
+            print("Last online for " + alias + " was updated.")
+
+            return True
+    
+    return False
 
 
 if __name__ == '__main__':
-    run()
+    run(last_online_file)
+
+    # update_last_online(last_online_file, "henry-armbian-rpi-4-model-b")
