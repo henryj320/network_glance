@@ -27,7 +27,7 @@ table {
 
 table th {
     border: 2px solid black;
-    font-size: larger;
+    font-size: 1vw;
     font-weight: bolder;
     padding: 2%;
     background: #48A2F1;
@@ -59,11 +59,15 @@ table td:nth-child(1) {
 }
 
 #personalDevicesTable td:nth-child(2) {
-    width: 45%;
+    width: 20%;
     text-align: left;
 }
 
 #personalDevicesTable td:nth-child(3) {
+    width: 7.5%;
+}
+
+#personalDevicesTable td:nth-child(4) {
     width: 20%;
 }
 

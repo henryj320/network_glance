@@ -7,7 +7,7 @@
     <script>
 
         // The devices that we want to know if they are online or offline.
-        var personal_devices = ["henry-armbian-rpi-4-model-b", "henry-windows-gaming-pc", "henry-ubuntu-surface-3"]
+        var personal_devices = ["henry-armbian-rpi-4-model-b", "henry-windows-gaming-pc", "henry-ubuntu-surface-3", "henry-android-phone"]
 
         // Contains the names, IPs and MAC addresses of all devices connected to the network.
         var network_names = []
@@ -18,6 +18,7 @@
         var personal_devices_names = []
         var personal_devices_ips = []
         var offline_devices = []
+        var offline_devices_last_online = []
 
 
         // Calls net_glance to get the devices connected to the network.
@@ -27,6 +28,8 @@
 
             // For each device on the network.
             for (var x = 0; x < response.data.data.devices.length; x++) {
+
+                console.log(response.data.data.devices)
 
                 // Stored to use later.
                 network_names.push(response.data.data.devices[x]["name"])
@@ -82,24 +85,130 @@
                 var cell3 = row.insertCell(2);
                 cell3.innerHTML = "&#9989;"
 
+                var cell4 = row.insertCell(3);
+                cell4.innerHTML = "-"
+
+
             }
 
+
+
+
+            fetch("../network_glance/assets/last_online_alt.json")  // Returns a promise of the server's response.
+            .then((response) => response.json())  // Parses the response into a JS object.
+            // .then(response => console.log(JSON.stringify(response)))  // Parses the object to a string.
+            .then(response => {
+                // console.log(response)
+
+                console.log(response.lastOnline)
+
+                // response.data.data.devices.length
+
+                // var last_online_keys = Object.keys(response)
+
+                var tempArray = []
+
+                for (var x = 0; x < offline_devices.length; x++) {
+
+                    // console.log("Entered")
+                    // Gets the last_online time of each offline device
+
+                    for (var y = 0; y < response.lastOnline.length; y++) {
+                            // console.log(offline_devices[x] + " - " + last_online_keys[y])
+
+                        if (offline_devices[x] == response.lastOnline[y].name) {
+
+
+                            // Stripping the seconds and microseconds
+                            var lastOnline = String(response.lastOnline[y].lastOnline)
+
+                            lastOnline = lastOnline.split(":");
+                            lastOnline = lastOnline[0] + ":" + lastOnline[1]
+                            console.log(lastOnline)
+
+
+                            console.log(response.lastOnline[y].name)
+                            //offline_devices_last_online.push(response.lastOnline[y].name)
+                            offline_devices_last_online.push(lastOnline)
+                            console.log("Adding " + response.lastOnline[y].lastOnline)
+                            console.log(response.lastOnline[y])
+
+                            tempArray.push(lastOnline)
+
+
+
+                            // offline_devices_last_online.push(offline_devices[x])
+                        }  // If offline device and last_online match.
+
+                        // console.log(response[last_online_keys[y]])
+
+                    }
+                }
+
+
+                // const sleep = ms => new Promise(r => setTimeout(r, 1000));
 
             // Adds each of the offline devices.
             for (var x = 0; x < offline_devices.length; x++) {
 
-                var row = personal_devices_table.insertRow(personal_devices_names.length + 1);
+var row = personal_devices_table.insertRow(personal_devices_names.length + 1);
 
-                var cell1 = row.insertCell(0);
-                cell1.innerHTML = offline_devices[x]
+var cell1 = row.insertCell(0);
+cell1.innerHTML = offline_devices[x];
 
-                var cell2 = row.insertCell(1);
-                cell2.innerHTML = "-"
+var cell2 = row.insertCell(1);
+cell2.innerHTML = "-";
 
-                var cell3 = row.insertCell(2);
-                cell3.innerHTML = "&#10060;"
+var cell3 = row.insertCell(2);
+cell3.innerHTML = "&#10060;";
 
-            }
+// console.log(offline_devices_last_online.length)
+
+var temp = offline_devices_last_online[x];
+console.log(temp);
+
+var cell4 = row.insertCell(3);
+cell4.innerHTML = offline_devices_last_online[x];
+
+
+
+console.log(offline_devices_last_online)
+
+console.log(x)
+
+
+}
+
+                console.log(tempArray)
+
+                offline_devices_last_online = tempArray
+            })
+
+            console.log(offline_devices_last_online)
+            console.log(offline_devices)
+
+
+            console.log(offline_devices_last_online.length)
+            console.log(offline_devices.length)
+
+            console.log(typeof(offline_devices_last_online))
+            console.log(typeof(offline_devices))
+
+            console.log(Array.isArray(offline_devices_last_online))
+            console.log(Array.isArray(offline_devices))
+
+            // offline_devices_last_online = Object.values(offline_devices_last_online)
+            // offline_devices_last_online = Object.entries(offline_devices_last_online)
+
+
+
+
+
+
+
+
+
+            
 
             all_tables = document.getElementById("allTables");
             all_tables.style = "display: block"
@@ -136,12 +245,13 @@
             }
         })
 
+        
+
     </script>
 </head>
 
 <body>
     <br><br>
-    <div class="borders"></div>
     <div id="loadingDiv">
         <div id="loadingAlt">
             <div id="loadingAltTwo"></div>
@@ -174,6 +284,7 @@
                     <th>Name</th>
                     <th>IP</th>
                     <th>Status</th>
+                    <th>Last Online</th>
                 </tr>
             </table>
         </div>

@@ -187,4 +187,25 @@ Last update: 2023/03/24 00:42
 13. Adding last online
     - Made it so device_map updates last_online.json for any devices that are online.
     - Making net_glance do the same.
-    
+    - Hard to update basic_viewer
+        - Because it doesn't call the device_glance script at the moment.
+14. Adding last online to basic_viewer
+    - Going to try it with a fetch command
+        - To fetch the content of last_online.json
+        - Having some issues with it not retrieving first
+            - Doing it first. May need an await
+                - That isnt the issue
+                - For some reason it is undefined when it shouldnt be
+        - The arrays are slightly different somehow
+            - ['henry-ubuntu-surface-3', 'henry-android-phone'] != ['henry-ubuntu-surface-3', 'henry-android-phone']
+                - I dont understand why
+            - Length of offline_devices_last_online and offline_devices do not match even though they should
+    - Tried changing the layout of last_online.json (shown in last_online_alt.json)
+    - Array.isArray(offline_devices_last_online) returns true
+    - offline_devices_last_online.push(response.lastOnline[y].name)
+        - That isnt working properly
+            - Doesnt work pushing "1" either
+    - Works when inside the fetch statement. So weird...
+    - Code cleanup required
+    - TODO: update net_glance and device_glance to use the new format
+
