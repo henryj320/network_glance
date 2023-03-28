@@ -240,5 +240,13 @@ Last update: 2023/03/28 00:12
             - Commented out the fetch. It still does it...
             - Seems to refresh just after printing out the fetch
             - Doesnt repeat if I dont click go live (and just drag the file to browser)
-                - So it sjust an issue with going live. Great! That's fine then
+                - So its just an issue with going live. Great! That's fine then
+                - Restarted the laptop. Still an issue with "Go Live"
+        - Access to fetch at 'file:///home/henry/Documents/Git_Repos/network_glance/network_glance/assets/last_online_alt.json' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, isolated-app, chrome-extension, chrome, https, chrome-untrusted
+            - Added https://mybrowseraddon.com/access-control-allow-origin.html?v=0.1.8&type=install Extension
+            - Tried setting mode to CORS in the fetch
+            - Could just have a "get file" method in the API
+        - Is it to do with live reload?
+        - Checking if its the same on main branch
+            
 
