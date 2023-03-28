@@ -20,7 +20,7 @@ class Net_Glance(Resource):
     def get(self):
         """GET method for net_glance."""
 
-        data = net_g.run("../network_glance/assets/last_online.json")
+        data = net_g.run("./network_glance/assets/last_online.json")
         # data = net_g.update_last_online("../network_glance/assets/last_online.json", "henry-alexa")
 
         return {'data': data}, 200  # 200 OK code.

@@ -93,7 +93,7 @@ def update_last_online(json_file: str, alias: str) -> bool:
             last_online_mappings["lastOnline"][index]["lastOnline"] = str(current_time)
 
             json.dump(last_online_mappings, last_online_file, indent=2)
-            print("Last online for " + alias + " was updated.")
+            # print("Last online for " + alias + " was updated.")
 
             return True
     

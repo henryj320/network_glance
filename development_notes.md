@@ -221,4 +221,24 @@ Last update: 2023/03/28 00:12
                 - `python install .[testing] `
                 - `python install .[viewer] `
                 - Still giving the error
+                    - Not quite sure as to why
+                - Deleting __pycache__
+                - ` sudo pip install . `
+                    - That did it! Needed to pip install the latest version
+            - Now it seems to run infinitely
+                - ` sudo python ./network_glance/net_glance.py `
+                    - That doesnt cause it
+                - ` curl http://192.168.1.101:4000/monitor/net_glance `
+                    - That is doing it repeatedly!
+                        - Not the if __main__ part
+        - TODO: Diagnose why net_glance now repeatly runs
+            - Went to bed for the night.
+            - Retried the ` curl `. Didnt repeat
+            - Running the website. That does repeat!
+            - Curl does not. So its an issue with the website somehow
+                - Something to do with the fetch?
+            - Commented out the fetch. It still does it...
+            - Seems to refresh just after printing out the fetch
+            - Doesnt repeat if I dont click go live (and just drag the file to browser)
+                - So it sjust an issue with going live. Great! That's fine then
 
