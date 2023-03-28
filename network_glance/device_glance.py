@@ -100,6 +100,6 @@ def get_last_online(json_file: str, connected: bool, alias: str) -> str:
 
 
 if __name__ == '__main__':
-    # response = run()
+    response = run()
 
-    get_last_online(json_file, True, "20:16:b9:90:2e:4b")
+    # get_last_online(json_file, True, "20:16:b9:90:2e:4b")

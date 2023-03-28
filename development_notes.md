@@ -247,6 +247,12 @@ Last update: 2023/03/28 00:12
             - Tried setting mode to CORS in the fetch
             - Could just have a "get file" method in the API
         - Is it to do with live reload?
+    - Trying to fix the Live reload issue
         - Checking if its the same on main branch
-            
+            - Issue is not there. What are the differences?
+                - Comparing the differences
+                - Theres nothing that should cause a loop
+        - OH! IS IT BECAUSE LAST_ONLINE.JSON is updating?
+            - Adding last_online.json to the Ignore
+            - Yes! That's it. To fix it, just go into the settings of Live Server and add the file to the liveServer.settings.ignoreFiles array.
 
