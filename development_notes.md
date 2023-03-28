@@ -255,4 +255,8 @@ Last update: 2023/03/28 00:12
         - OH! IS IT BECAUSE LAST_ONLINE.JSON is updating?
             - Adding last_online.json to the Ignore
             - Yes! That's it. To fix it, just go into the settings of Live Server and add the file to the liveServer.settings.ignoreFiles array.
+15. Title attribute
+    - Interesting addition. Each HTML element can have a title="" attribute
+        - Text to show on hover
+    - Added title to many fields.
 

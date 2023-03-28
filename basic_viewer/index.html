@@ -29,8 +29,6 @@
             // For each device on the network.
             for (var x = 0; x < response.data.data.devices.length; x++) {
 
-                console.log(response.data.data.devices)
-
                 // Stored to use later.
                 network_names.push(response.data.data.devices[x]["name"])
                 network_ips.push(response.data.data.devices[x]["ip"])
@@ -84,9 +82,11 @@
 
                 var cell3 = row.insertCell(2);
                 cell3.innerHTML = "&#9989;"
+                cell3.title = "This device is currently online!"
 
                 var cell4 = row.insertCell(3);
                 cell4.innerHTML = "-"
+                cell4.title = "'Last Online' not available as the device is currently connected"
 
 
             }
@@ -106,8 +106,6 @@
                 // .then(response => console.log(JSON.stringify(response)))  // Parses the object to a string.
                 .then(response => {
                     // console.log(response)
-
-                    console.log(response.lastOnline)
 
                     // response.data.data.devices.length
 
@@ -131,14 +129,11 @@
 
                                 lastOnline = lastOnline.split(":");
                                 lastOnline = lastOnline[0] + ":" + lastOnline[1]
-                                console.log(lastOnline)
 
 
-                                console.log(response.lastOnline[y].name)
                                 //offline_devices_last_online.push(response.lastOnline[y].name)
                                 offline_devices_last_online.push(lastOnline)
                                 console.log("Adding " + response.lastOnline[y].lastOnline)
-                                console.log(response.lastOnline[y])
 
                                 tempArray.push(lastOnline)
 
@@ -162,26 +157,19 @@
 
                         var cell2 = row.insertCell(1);
                         cell2.innerHTML = "-";
+                        cell2.title = "The IP cannot be provided because the device is offline"
 
                         var cell3 = row.insertCell(2);
                         cell3.innerHTML = "&#10060;";
+                        cell3.title = "This device is not currently online"
 
-                        var temp = offline_devices_last_online[x];
-                        console.log(temp);
 
                         var cell4 = row.insertCell(3);
                         cell4.innerHTML = offline_devices_last_online[x];
-
-
-
-                        console.log(offline_devices_last_online)
-
-                        console.log(x)
+                        cell4.title = "This device was last online at " + offline_devices_last_online[x]
 
 
                     }
-
-                    console.log(tempArray)
 
                     offline_devices_last_online = tempArray
                 })
@@ -196,7 +184,6 @@
 
 
         axios.get("http://192.168.1.101:4000/monitor/end_glance").then((response) => {
-            console.log(response)
 
             var endpoints_table = document.getElementById("endpointsTable")
 
@@ -219,6 +206,12 @@
 
                 var cell3 = row.insertCell(2);
                 cell3.innerHTML = online
+
+                if (response.data.data.endpoints[x]["online"]) {
+                    cell3.title = "This endpoint is currently online!"
+                } else {
+                    cell3.title = "This endpoint is not currently online"
+                }
             }
         })
 
@@ -239,7 +232,7 @@
 
     <div id="allTables">
         <div id="networkDiv">
-            <h1>Network Table</h1>
+            <h1 title="A list of devices currently connected to the Wi-Fi network.">Network Table</h1>
             <p>A list of devices currently connected to the Wi-Fi network.</p>
 
             <table id="networkTable">
@@ -281,7 +274,7 @@
             </table>
         </div>
 
-        <br><br>
+        <br><br><br><br>
     </div>
 </body>
 
