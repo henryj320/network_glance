@@ -3,6 +3,8 @@ import net_glance as net_g
 import device_glance as dev_g
 import endpoint_glance as end_g
 
+last_online_file = "./network_glance/assets/last_online.json"
+
 
 def run():
     """Run device_glance, net_glance and endpoint_glance."""
@@ -32,7 +34,7 @@ def run_net_glance() -> dict:
     Returns:
         dict: The devices connected to the network.
     """
-    return net_g.run()
+    return net_g.run(last_online_file)
 
 
 def run_dev_glance(network: dict, personal_devices: tuple) -> dict:

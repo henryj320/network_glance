@@ -1,6 +1,6 @@
 # network_glance
 
-Last update: 2023/03/24 00:42
+Last update: 2023/03/28 00:12
 <br><br>
 
 ## Development notes for network_glance
@@ -184,3 +184,82 @@ Last update: 2023/03/24 00:42
         - ` fuser -k 4000/tcp `
     - Trying to add a black border to the loading bar.
         - Looks good!
+13. Adding last online
+    - Made it so device_map updates last_online.json for any devices that are online.
+    - Making net_glance do the same.
+    - Hard to update basic_viewer
+        - Because it doesn't call the device_glance script at the moment.
+14. Adding last online to basic_viewer
+    - Going to try it with a fetch command
+        - To fetch the content of last_online.json
+        - Having some issues with it not retrieving first
+            - Doing it first. May need an await
+                - That isnt the issue
+                - For some reason it is undefined when it shouldnt be
+        - The arrays are slightly different somehow
+            - ['henry-ubuntu-surface-3', 'henry-android-phone'] != ['henry-ubuntu-surface-3', 'henry-android-phone']
+                - I dont understand why
+            - Length of offline_devices_last_online and offline_devices do not match even though they should
+    - Tried changing the layout of last_online.json (shown in last_online_alt.json)
+    - Array.isArray(offline_devices_last_online) returns true
+    - offline_devices_last_online.push(response.lastOnline[y].name)
+        - That isnt working properly
+            - Doesnt work pushing "1" either
+    - Works when inside the fetch statement. So weird...
+    - Code cleanup required
+    - Running the website doesnt update last_online. Probably linked to the JSON file path being wrong when hosting from the server. Add a parameter
+        - Fixed that
+    - Update net_glance and device_glance to use the new format
+        - Updated net_glance#
+        - Updated device_glance
+        - Checking it updates when website runs
+            - TypeError: run() takes 0 positional arguments but 1 was given
+                - ` pip install . `
+                - Didnt work
+                - ` python -m build `
+                - `python install . `
+                - `python install .[testing] `
+                - `python install .[viewer] `
+                - Still giving the error
+                    - Not quite sure as to why
+                - Deleting __pycache__
+                - ` sudo pip install . `
+                    - That did it! Needed to pip install the latest version
+            - Now it seems to run infinitely
+                - ` sudo python ./network_glance/net_glance.py `
+                    - That doesnt cause it
+                - ` curl http://192.168.1.101:4000/monitor/net_glance `
+                    - That is doing it repeatedly!
+                        - Not the if __main__ part
+        - TODO: Diagnose why net_glance now repeatly runs
+            - Went to bed for the night.
+            - Retried the ` curl `. Didnt repeat
+            - Running the website. That does repeat!
+            - Curl does not. So its an issue with the website somehow
+                - Something to do with the fetch?
+            - Commented out the fetch. It still does it...
+            - Seems to refresh just after printing out the fetch
+            - Doesnt repeat if I dont click go live (and just drag the file to browser)
+                - So its just an issue with going live. Great! That's fine then
+                - Restarted the laptop. Still an issue with "Go Live"
+        - Access to fetch at 'file:///home/henry/Documents/Git_Repos/network_glance/network_glance/assets/last_online_alt.json' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, isolated-app, chrome-extension, chrome, https, chrome-untrusted
+            - Added https://mybrowseraddon.com/access-control-allow-origin.html?v=0.1.8&type=install Extension
+            - Tried setting mode to CORS in the fetch
+            - Could just have a "get file" method in the API
+        - Is it to do with live reload?
+    - Trying to fix the Live reload issue
+        - Checking if its the same on main branch
+            - Issue is not there. What are the differences?
+                - Comparing the differences
+                - Theres nothing that should cause a loop
+        - OH! IS IT BECAUSE LAST_ONLINE.JSON is updating?
+            - Adding last_online.json to the Ignore
+            - Yes! That's it. To fix it, just go into the settings of Live Server and add the file to the liveServer.settings.ignoreFiles array.
+15. Title attribute
+    - Interesting addition. Each HTML element can have a title="" attribute
+        - Text to show on hover
+    - Added title to many fields.
+16. Toxing
+    - Code cleanup
+        - device_glance.py
+

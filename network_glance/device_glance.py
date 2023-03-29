@@ -1,4 +1,9 @@
 """Module to return whether given hostnames are currently connected."""
+import datetime
+import json
+
+
+json_file = "./network_glance/assets/last_online.json"
 
 
 def run(network: dict, devices: list) -> dict:
@@ -28,8 +33,8 @@ def run(network: dict, devices: list) -> dict:
                 personal_devices.append({
                     "name": online_device["name"],
                     "ip": online_device["ip"],
-                    "connected": True
-                    # "mac": online_device["mac"]
+                    "connected": True,
+                    "last_online": str(datetime.datetime.now())
                 })
 
                 input_devices.remove(input_device)
@@ -37,7 +42,10 @@ def run(network: dict, devices: list) -> dict:
     for offline_device in input_devices:  # Adds each offline device.
         personal_devices.append({
             "name": offline_device,
-            "connected": False
+            "connected": False,
+
+            # Sets last_online to recorded in last_online.json
+            "last_online": get_last_online(json_file, False, offline_device)
         })
 
     response = {
@@ -45,6 +53,51 @@ def run(network: dict, devices: list) -> dict:
     }
 
     return response
+
+
+def get_last_online(json_file: str, connected: bool, alias: str) -> str:
+    """Return the time that alias was last online.
+
+    Args:
+        json_file (str): Path to last_online.json.
+        connected (bool): True or False whether the device is online or not.
+        alias (str): Alias of the device.
+
+    Returns:
+        str: Last online time.
+    """
+    # Loads the last online .json file.
+    last_online_file = open(json_file, "r")
+    lo_map = json.load(last_online_file)
+
+    if connected:
+        last_online_file = open(json_file, "w")
+
+        current_time = datetime.datetime.now()
+
+        json.dump(lo_map, last_online_file, indent=2)
+
+        for index, value in enumerate(lo_map["lastOnline"]):
+
+            if value["name"] == alias:
+
+                lo_map["lastOnline"][index]["lastOnline"] = \
+                    str(current_time)
+
+                json.dump(lo_map, last_online_file, indent=2)
+                print("Last online for " + alias + " was updated.")
+
+                return current_time
+
+    # Find last online if device is offline.
+    try:
+        # Finds the device details.
+        for index, value in enumerate(lo_map["lastOnline"]):
+            if value["name"] == alias:
+                return str(lo_map["lastOnline"][index]["lastOnline"])
+
+    except KeyError:  # If MAC address not found in last_online.json.
+        return "0000-00-00 00:00:01"
 
 
 if __name__ == '__main__':
