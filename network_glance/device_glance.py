@@ -35,7 +35,6 @@ def run(network: dict, devices: list) -> dict:
                     "ip": online_device["ip"],
                     "connected": True,
                     "last_online": str(datetime.datetime.now())
-                    # "mac": online_device["mac"]
                 })
 
                 input_devices.remove(input_device)
@@ -44,6 +43,7 @@ def run(network: dict, devices: list) -> dict:
         personal_devices.append({
             "name": offline_device,
             "connected": False,
+
             # Sets last_online to recorded in last_online.json
             "last_online": get_last_online(json_file, False, offline_device)
         })
@@ -68,21 +68,23 @@ def get_last_online(json_file: str, connected: bool, alias: str) -> str:
     """
     # Loads the last online .json file.
     last_online_file = open(json_file, "r")
-    last_online_mappings = json.load(last_online_file)
+    lo_map = json.load(last_online_file)
 
     if connected:
         last_online_file = open(json_file, "w")
 
         current_time = datetime.datetime.now()
 
-        json.dump(last_online_mappings, last_online_file, indent=2)
+        json.dump(lo_map, last_online_file, indent=2)
 
-        for index, value in enumerate(last_online_mappings["lastOnline"]):
+        for index, value in enumerate(lo_map["lastOnline"]):
 
             if value["name"] == alias:
-                last_online_mappings["lastOnline"][index]["lastOnline"] = str(current_time)
 
-                json.dump(last_online_mappings, last_online_file, indent=2)
+                lo_map["lastOnline"][index]["lastOnline"] = \
+                    str(current_time)
+
+                json.dump(lo_map, last_online_file, indent=2)
                 print("Last online for " + alias + " was updated.")
 
                 return current_time
@@ -90,16 +92,13 @@ def get_last_online(json_file: str, connected: bool, alias: str) -> str:
     # Find last online if device is offline.
     try:
         # Finds the device details.
-        for index, value in enumerate(last_online_mappings["lastOnline"]):
+        for index, value in enumerate(lo_map["lastOnline"]):
             if value["name"] == alias:
-                return str(last_online_mappings["lastOnline"][index]["lastOnline"])
+                return str(lo_map["lastOnline"][index]["lastOnline"])
 
     except KeyError:  # If MAC address not found in last_online.json.
         return "0000-00-00 00:00:01"
 
 
-
 if __name__ == '__main__':
     response = run()
-
-    # get_last_online(json_file, True, "20:16:b9:90:2e:4b")
