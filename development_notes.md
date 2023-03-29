@@ -262,4 +262,11 @@ Last update: 2023/03/28 00:12
 16. Toxing
     - Code cleanup
         - device_glance.py
+17. Adding to the website
+    - ` sudo fuser -k 4000/tcp `
+    - Added a drop-shadow
+    - Adding a progress bar
+    - Adding an error if no connection.
+18. Writing tests
+    - Figuring out what could be in the tests.
 

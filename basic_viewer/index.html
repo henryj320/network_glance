@@ -21,201 +21,206 @@
         var offline_devices_last_online = []
 
 
-        // Calls net_glance to get the devices connected to the network.
-        axios.get("http://192.168.1.101:4000/monitor/net_glance").then((response) => {
+        // Once the Window body has loaded.
+        window.onload = async function () {
 
-            var network_table = document.getElementById("networkTable")
+            var progress_bar_percent = 0;  // Percent complete in loading
+            var progress_bar = document.getElementById("progressBar");
+            var progress_text = document.getElementById("progressText")
 
-            // For each device on the network.
-            for (var x = 0; x < response.data.data.devices.length; x++) {
+            console.log(progress_text)
 
-                // Stored to use later.
-                network_names.push(response.data.data.devices[x]["name"])
-                network_ips.push(response.data.data.devices[x]["ip"])
-                network_macs.push(response.data.data.devices[x]["mac"])
-
-
-                var row = network_table.insertRow(x + 1);
-
-                var cell1 = row.insertCell(0);
-                cell1.innerHTML = response.data.data.devices[x]["name"]
-
-                var cell2 = row.insertCell(1);
-                cell2.innerHTML = response.data.data.devices[x]["ip"]
-
-                var cell3 = row.insertCell(2);
-                cell3.innerHTML = response.data.data.devices[x]["mac"]
-            }
+            progress_bar.style.background = "linear-gradient(90deg, rgba(72,162,241,1) 0%, rgba(62,138, 206,1) 10%,  rgb(255, 255, 255, 1)  11%)";
+            progress_text.innerHTML = "Finding devices on the network..."
 
 
-            var personal_devices_table = document.getElementById("personalDevicesTable")
+            // Calls net_glance to get the devices connected to the network.
+            axios.get("http://192.168.1.101:4000/monitor/net_glance").then((response) => {
 
-            // Checks whether each of the personal_devices are online.
-            for (var x = 0; x < personal_devices.length; x++) {
+                var network_table = document.getElementById("networkTable")
 
-                var online = false;
-                for (var y = 0; y < network_names.length; y++) {
-                    if (network_names[y] == personal_devices[x]) {
-                        personal_devices_names.push(network_names[y])
-                        personal_devices_ips.push(network_ips[y])
-                        online = true;
-                    }
+                // For each device on the network.
+                for (var x = 0; x < response.data.data.devices.length; x++) {
+
+                    // Stored to use later.
+                    network_names.push(response.data.data.devices[x]["name"])
+                    network_ips.push(response.data.data.devices[x]["ip"])
+                    network_macs.push(response.data.data.devices[x]["mac"])
+
+
+                    var row = network_table.insertRow(x + 1);
+
+                    var cell1 = row.insertCell(0);
+                    cell1.innerHTML = response.data.data.devices[x]["name"]
+
+                    var cell2 = row.insertCell(1);
+                    cell2.innerHTML = response.data.data.devices[x]["ip"]
+
+                    var cell3 = row.insertCell(2);
+                    cell3.innerHTML = response.data.data.devices[x]["mac"]
                 }
 
-                // If personal_device is not online.
-                if (online == false) {
-                    offline_devices.push(personal_devices[x])
-                }
-            }
 
+                var personal_devices_table = document.getElementById("personalDevicesTable")
 
-            // Adds each of the online devices to the Personal Devices Table.
-            for (var x = 0; x < personal_devices_names.length; x++) {
+                // Checks whether each of the personal_devices are online.
+                for (var x = 0; x < personal_devices.length; x++) {
 
-                var row = personal_devices_table.insertRow(x + 1);
-
-                var cell1 = row.insertCell(0);
-                cell1.innerHTML = personal_devices_names[x]
-
-                var cell2 = row.insertCell(1);
-                cell2.innerHTML = personal_devices_ips[x]
-
-                var cell3 = row.insertCell(2);
-                cell3.innerHTML = "&#9989;"
-                cell3.title = "This device is currently online!"
-
-                var cell4 = row.insertCell(3);
-                cell4.innerHTML = "-"
-                cell4.title = "'Last Online' not available as the device is currently connected"
-
-
-            }
-
-
-
-
-            fetch("../network_glance/assets/last_online.json", {
-                method : "GET",
-                mode: 'cors',
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
-            }
-            )  // Returns a promise of the server's response.
-                .then((response) => response.json())  // Parses the response into a JS object.
-                // .then(response => console.log(JSON.stringify(response)))  // Parses the object to a string.
-                .then(response => {
-                    // console.log(response)
-
-                    // response.data.data.devices.length
-
-                    // var last_online_keys = Object.keys(response)
-
-                    var tempArray = []
-
-                    for (var x = 0; x < offline_devices.length; x++) {
-
-                        // console.log("Entered")
-                        // Gets the last_online time of each offline device
-
-                        for (var y = 0; y < response.lastOnline.length; y++) {
-                            // console.log(offline_devices[x] + " - " + last_online_keys[y])
-
-                            if (offline_devices[x] == response.lastOnline[y].name) {
-
-
-                                // Stripping the seconds and microseconds
-                                var lastOnline = String(response.lastOnline[y].lastOnline)
-
-                                lastOnline = lastOnline.split(":");
-                                lastOnline = lastOnline[0] + ":" + lastOnline[1]
-
-
-                                //offline_devices_last_online.push(response.lastOnline[y].name)
-                                offline_devices_last_online.push(lastOnline)
-                                console.log("Adding " + response.lastOnline[y].lastOnline)
-
-                                tempArray.push(lastOnline)
-
-
-
-                                // offline_devices_last_online.push(offline_devices[x])
-                            }  // If offline device and last_online match.
-
-                            // console.log(response[last_online_keys[y]])
-
+                    var online = false;
+                    for (var y = 0; y < network_names.length; y++) {
+                        if (network_names[y] == personal_devices[x]) {
+                            personal_devices_names.push(network_names[y])
+                            personal_devices_ips.push(network_ips[y])
+                            online = true;
                         }
                     }
 
-                    // Adds each of the offline devices.
-                    for (var x = 0; x < offline_devices.length; x++) {
-
-                        var row = personal_devices_table.insertRow(personal_devices_names.length + 1);
-
-                        var cell1 = row.insertCell(0);
-                        cell1.innerHTML = offline_devices[x];
-
-                        var cell2 = row.insertCell(1);
-                        cell2.innerHTML = "-";
-                        cell2.title = "The IP cannot be provided because the device is offline"
-
-                        var cell3 = row.insertCell(2);
-                        cell3.innerHTML = "&#10060;";
-                        cell3.title = "This device is not currently online"
+                    // If personal_device is not online.
+                    if (online == false) {
+                        offline_devices.push(personal_devices[x])
+                    }
+                }
 
 
-                        var cell4 = row.insertCell(3);
-                        cell4.innerHTML = offline_devices_last_online[x];
-                        cell4.title = "This device was last online at " + offline_devices_last_online[x]
+                // Adds each of the online devices to the Personal Devices Table.
+                for (var x = 0; x < personal_devices_names.length; x++) {
+
+                    var row = personal_devices_table.insertRow(x + 1);
+
+                    var cell1 = row.insertCell(0);
+                    cell1.innerHTML = personal_devices_names[x]
+
+                    var cell2 = row.insertCell(1);
+                    cell2.innerHTML = personal_devices_ips[x]
+
+                    var cell3 = row.insertCell(2);
+                    cell3.innerHTML = "&#9989;"
+                    cell3.title = "This device is currently online!"
+
+                    var cell4 = row.insertCell(3);
+                    cell4.innerHTML = "-"
+                    cell4.title = "'Last Online' not available as the device is currently connected"
+
+                }
 
 
+                fetch("../network_glance/assets/last_online.json", {
+                    method: "GET",
+                    mode: 'cors',
+                    headers: {
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                }
+                )  // Returns a promise of the server's response.
+                    .then((response) => response.json())  // Parses the response into a JS object.
+                    // .then(response => console.log(JSON.stringify(response)))  // Parses the object to a string.
+                    .then(response => {
+
+                        var tempArray = []
+
+                        for (var x = 0; x < offline_devices.length; x++) {
+
+                            // Gets the last_online time of each offline device
+                            for (var y = 0; y < response.lastOnline.length; y++) {
+
+                                if (offline_devices[x] == response.lastOnline[y].name) {
+
+                                    // Stripping the seconds and microseconds
+                                    var lastOnline = String(response.lastOnline[y].lastOnline)
+
+                                    lastOnline = lastOnline.split(":");
+                                    lastOnline = lastOnline[0] + ":" + lastOnline[1]
+
+                                    offline_devices_last_online.push(lastOnline)
+                                    console.log("Adding " + response.lastOnline[y].lastOnline)
+
+                                    tempArray.push(lastOnline)
+
+                                }  // If offline device and last_online match.
+
+                            }
+                        }
+
+                        // Adds each of the offline devices.
+                        for (var x = 0; x < offline_devices.length; x++) {
+
+                            var row = personal_devices_table.insertRow(personal_devices_names.length + 1);
+
+                            var cell1 = row.insertCell(0);
+                            cell1.innerHTML = offline_devices[x];
+
+                            var cell2 = row.insertCell(1);
+                            cell2.innerHTML = "-";
+                            cell2.title = "The IP cannot be provided because the device is offline"
+
+                            var cell3 = row.insertCell(2);
+                            cell3.innerHTML = "&#10060;";
+                            cell3.title = "This device is not currently online"
+
+
+                            var cell4 = row.insertCell(3);
+                            cell4.innerHTML = offline_devices_last_online[x];
+                            cell4.title = "This device was last online at " + offline_devices_last_online[x]
+
+                        }
+
+                        offline_devices_last_online = tempArray
+                    })
+                
+                progress_bar.style.background = "linear-gradient(90deg, rgba(72,162,241,1) 0%, rgba(62,138, 206,1) 90%,  rgb(255, 255, 255, 1)  91%)";
+                progress_text.innerHTML = "Finishing up...";
+
+
+                all_tables = document.getElementById("allTables");
+                all_tables.style = "display: block"
+
+                loading = document.getElementById("loadingDiv");
+                loading.style = "display:none"
+            }).catch(error => {
+                console.log(error.message)
+
+                progress_bar.style.background = "linear-gradient(90deg, rgba(134, 15, 15, 1) 0%, rgba(230, 0, 0, 1) 50%,  rgb(255, 255, 255, 1)  51%)";
+                progress_text.innerHTML = error.message;
+
+            });
+
+
+            axios.get("http://192.168.1.101:4000/monitor/end_glance").then((response) => {
+
+                var endpoints_table = document.getElementById("endpointsTable")
+
+                progress_bar.style.background = "linear-gradient(90deg, rgba(72,162,241,1) 0%, rgba(62,138, 206,1) 60%,  rgb(255, 255, 255, 1)  61%)";
+                progress_text.innerHTML = "Adding to the tables...";
+
+
+                // For each device on the network.
+                for (var x = 0; x < response.data.data.endpoints.length; x++) {
+
+                    var online = "&#10060;"
+                    if (response.data.data.endpoints[x]["online"]) {
+                        online = "&#9989;"
                     }
 
-                    offline_devices_last_online = tempArray
-                })
 
+                    var row = endpoints_table.insertRow(x + 1);
 
-            all_tables = document.getElementById("allTables");
-            all_tables.style = "display: block"
+                    var cell1 = row.insertCell(0);
+                    cell1.innerHTML = response.data.data.endpoints[x]["name"]
 
-            loading = document.getElementById("loadingDiv");
-            loading.style = "display:none"
-        })
+                    var cell2 = row.insertCell(1);
+                    cell2.innerHTML = response.data.data.endpoints[x]["url"]
 
+                    var cell3 = row.insertCell(2);
+                    cell3.innerHTML = online
 
-        axios.get("http://192.168.1.101:4000/monitor/end_glance").then((response) => {
-
-            var endpoints_table = document.getElementById("endpointsTable")
-
-            // For each device on the network.
-            for (var x = 0; x < response.data.data.endpoints.length; x++) {
-
-                var online = "&#10060;"
-                if (response.data.data.endpoints[x]["online"]) {
-                    online = "&#9989;"
+                    if (response.data.data.endpoints[x]["online"]) {
+                        cell3.title = "This endpoint is currently online!"
+                    } else {
+                        cell3.title = "This endpoint is not currently online"
+                    }
                 }
-
-
-                var row = endpoints_table.insertRow(x + 1);
-
-                var cell1 = row.insertCell(0);
-                cell1.innerHTML = response.data.data.endpoints[x]["name"]
-
-                var cell2 = row.insertCell(1);
-                cell2.innerHTML = response.data.data.endpoints[x]["url"]
-
-                var cell3 = row.insertCell(2);
-                cell3.innerHTML = online
-
-                if (response.data.data.endpoints[x]["online"]) {
-                    cell3.title = "This endpoint is currently online!"
-                } else {
-                    cell3.title = "This endpoint is not currently online"
-                }
-            }
-        })
-
-
+            })
+        }
 
     </script>
 </head>
@@ -225,6 +230,10 @@
     <div id="loadingDiv">
         <div id="loadingAlt">
             <div id="loadingAltTwo"></div>
+        </div>
+        <div id="progressDiv">
+            <div id="progressBar"></div>
+            <p id="progressText">This is some progress text.</p>
         </div>
     </div>
 

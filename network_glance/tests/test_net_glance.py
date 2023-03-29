@@ -5,6 +5,10 @@ from network_glance import endpoint_glance as end_g
 
 
 def test_ng():
+
+    # Correct / Incorrect last_online_file
+    # Normal / No clients (wrong IP)
+
     pass
 
 
