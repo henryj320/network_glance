@@ -269,4 +269,13 @@ Last update: 2023/03/28 00:12
     - Adding an error if no connection.
 18. Writing tests
     - Figuring out what could be in the tests.
+    - Might have an issue running tests as sudo
+        - ` sudo apt install python3.10-venv `
+        - Fine after that. May mess up tox testing
+    - Running tox
+        - Failed
+        - Deleted the ".tox" folder.
+    - Found one issue:
+        - On failed update_last_online() it deletes last_online.json content.
+    - Runs with ` sudo tox -e tests `.
 

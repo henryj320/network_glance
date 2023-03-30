@@ -83,10 +83,24 @@ def update_last_online(json_file: str, alias: str) -> bool:
     """
     last_online_file = open(json_file, "r")
     lo_map = json.load(last_online_file)
+    # last_online_file.close()
+
 
     current_time = datetime.datetime.now()
+    
+
+    # Ensures that last_online.json is not emptied if the alias is invalid.
+    valid_aliases = []
+    for device in lo_map["lastOnline"]:
+        valid_aliases.append(device["name"])
+    
+    if alias not in valid_aliases:
+        return False
+
 
     last_online_file = open(json_file, "w")
+
+    
 
     for index, value in enumerate(lo_map["lastOnline"]):
 
