@@ -120,14 +120,16 @@ table td:nth-child(1) {
 
 #loadingAlt {
     margin: auto;
-    margin-top: 15vh;
+    margin-top: 5vh;
     border: 4vw solid white; /* Light grey */
     border-right: 4vw solid #48A2F1; /* Blue */
     border-radius: 50%;
     width: 20vw;
     height: 20vw;
-    animation: rotation 2.5s infinite ;
+    animation: rotation 2.5s infinite;
     background: #c9c9c9;
+
+    filter: drop-shadow(1vw 1vw 2vw rgb(127, 180, 226));
 }
 
 #loadingAlt:after {
@@ -152,7 +154,6 @@ table td:nth-child(1) {
     left: -1.8vw;
     right: -1.8vw;
     bottom: -1.8vw;
-
 }
 
 #loadingAltTwo {
@@ -168,6 +169,8 @@ table td:nth-child(1) {
     left: 0.5vw;
     right: 0.5vw;
     bottom: 0.5vw;
+
+    /* filter: drop-shadow(0vw 0vw 2vw #48A2F1) */
 }
 
 
@@ -184,6 +187,25 @@ table td:nth-child(1) {
 
 }
 
+#progressDiv {
+    margin: auto;
+    margin-top: 15vh;
+    text-align: center;
+    width: 100%;
+}
+
+#progressBar {
+    border: 2px solid black;
+    margin: auto;
+    width: 20vw;
+    height: 1vw;
+    border-radius: 10vw;
+    /* background: linear-gradient(217deg, rgba(62,138, 206,1), rgba(1,1,1,1) 10%) */
+    background: linear-gradient(90deg, rgba(72,162,241,1) 0%, rgba(62,138, 206,1) 1%,  rgb(255, 255, 255, 1) 2%);
+}
+
+
+
 #allTables {
     display: none;
     animation: fadein 1s;
@@ -193,9 +215,11 @@ table td:nth-child(1) {
 @keyframes rotation {
     from {
       transform: rotate(0deg);
+      /* filter: hue-rotate(0deg) */
     }
     to {
       transform: rotate(359deg);
+      /* filter: hue-rotate(-45deg) */
     }
 }
 
@@ -210,6 +234,12 @@ table td:nth-child(1) {
 
 
 @keyframes fadein {
-    from { opacity: 0}
-    to   { opacity: 1}
+    from {
+        opacity: 0;
+        filter: blur(3px);
+    }
+    to   {
+        opacity: 1;
+        filter: blur(0px)
+    }
   }

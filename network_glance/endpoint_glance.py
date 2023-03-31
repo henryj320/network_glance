@@ -11,6 +11,9 @@ def run(endpoints: tuple) -> dict:
     Returns:
         dict: A dict containing the status of each endpoint given.
     """
+    if not isinstance(endpoints, tuple):
+        raise TypeError
+
     # Sends a GET request to each endpoint given.
     responses = []
     for endpoint in endpoints:

@@ -28,7 +28,6 @@ jobs:
         python -m build
         pip install .[testing]
         pip install .  # Installs network_glance as a pip library.
-        pytest
         pycodestyle \
           network_glance/ \
           basic_viewer/

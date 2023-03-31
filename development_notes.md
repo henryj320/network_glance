@@ -262,4 +262,31 @@ Last update: 2023/03/28 00:12
 16. Toxing
     - Code cleanup
         - device_glance.py
-
+17. Adding to the website
+    - ` sudo fuser -k 4000/tcp `
+    - Added a drop-shadow
+    - Adding a progress bar
+    - Adding an error if no connection.
+18. Writing tests
+    - Figuring out what could be in the tests.
+    - Might have an issue running tests as sudo
+        - ` sudo apt install python3.10-venv `
+        - Fine after that. May mess up tox testing
+    - Running tox
+        - Failed
+        - Deleted the ".tox" folder.
+    - Found one issue:
+        - On failed update_last_online() it deletes last_online.json content.
+    - Runs with ` sudo tox -e tests `.
+    - Moving onto *test_device_glance.py*
+        - Running get_last_online() on its own seemed to append to last_online.json, not overwrite
+    - test_device_glance.py complete. Toxed too
+    - Likely an issue that it needs to be run as sudo.
+    - Moving onto *test_endpoint_glance.py*
+        - Think its all working
+19. Running tests in the pipeline
+    - FAILED network_glance/tests/test_net_glance.py::test_ng_run - PermissionError: [Errno 1] Operation not permitted
+    - FAILED network_glance/tests/test_endpoint_glance.py::test_eg_run - requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='192.168.1.109', port=4000): Max retries exceeded with url: /not_real (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f2546099540>, 'Connection to 192.168.1.109 timed out. (connect timeout=None)'))
+    - May need to just run it locally
+    - Failed
+        - ` sudo rm -rf .tox `
