@@ -1,15 +1,15 @@
 # network_glance
 
-Last update: 2023-03-17 22:50
+Last update: 2023-03-31 23:27
 <br><br>
 
 ## network_glance
 
-**Title**: rpi_health
+**Title**: network_glance
 
 **Date Started**: 2023-03-17
 
-**Date Completed**: -
+**Date Completed**: 2023-03-31
 
 **Language**: Python
 
@@ -18,3 +18,24 @@ Last update: 2023-03-17 22:50
 - Personal Devices: Name, Status, Last Online
 - Endpoints: Name, Status
 The intention would be for the output of this to be used in React Dashboard with a traffic-light system.
+
+---
+
+### Running the Project
+
+To run the project, follow these steps:
+1. Clone the Git repository with ` git clone git@github.com:henryj320/network_glance.git `.
+2. Move to the correct repository with ` cd network_glance `.
+3. Run the API with sudo permissions - ` sudo python basic_viewer/api.py `.
+    - This requires ` sudo ` permissions as it sends packets on the network.
+4. View the website by opening "basic_viewer/*index.html*".
+
+### Running Tests
+To test the code after making changes, run the following commands:
+``` bash
+cd network_glance
+tox  # Runs pycodestyle and pydocstyle.
+
+sudo rm -rf .tox
+sudo tox -e tests  # Builds the project. Also runs tox and pytests
+```

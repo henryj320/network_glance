@@ -166,13 +166,20 @@
 
                         offline_devices_last_online = tempArray
                     })
-                
+
                 progress_bar.style.background = "linear-gradient(90deg, rgba(72,162,241,1) 0%, rgba(62,138, 206,1) 90%,  rgb(255, 255, 255, 1)  91%)";
                 progress_text.innerHTML = "Finishing up...";
 
 
                 all_tables = document.getElementById("allTables");
                 all_tables.style = "display: block"
+
+                navbar = document.getElementById("navbar")
+                navbar.style = "display: block"
+
+                body = document.getElementsByTagName("body")[0]
+                body.style = "cursor: auto"
+                console.log()
 
                 loading = document.getElementById("loadingDiv");
                 loading.style = "display:none"
@@ -237,6 +244,14 @@
         </div>
     </div>
 
+
+    <div id="navbar">
+        <ul>
+            <li><a href="#allTables">Network</a></li>
+            <li><a href="#personalDevicesDiv">Personal Devices</a></li>
+            <li><a href="#endpointsDiv">Endpoints</a></li>
+        </ul>
+    </div>
 
 
     <div id="allTables">

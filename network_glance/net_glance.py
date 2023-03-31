@@ -83,7 +83,6 @@ def update_last_online(json_file: str, alias: str) -> bool:
     """
     last_online_file = open(json_file, "r")
     lo_map = json.load(last_online_file)
-    # last_online_file.close()
 
     current_time = datetime.datetime.now()
 
@@ -104,7 +103,6 @@ def update_last_online(json_file: str, alias: str) -> bool:
                 str(current_time)
 
             json.dump(lo_map, last_online_file, indent=2)
-            # print("Last online for " + alias + " was updated.")
 
             return True
 
@@ -113,5 +111,3 @@ def update_last_online(json_file: str, alias: str) -> bool:
 
 if __name__ == '__main__':
     run(last_online_file)
-
-    # update_last_online(last_online_file, "henry-armbian-rpi-4-model-b")

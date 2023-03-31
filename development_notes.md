@@ -1,6 +1,6 @@
 # network_glance
 
-Last update: 2023/03/28 00:12
+Last update: 2023-03-31 23:27
 <br><br>
 
 ## Development notes for network_glance
@@ -290,3 +290,11 @@ Last update: 2023/03/28 00:12
     - May need to just run it locally
     - Failed
         - ` sudo rm -rf .tox `
+20. Final finishing touches.
+    - Code cleanup
+        - Python files first
+        - index.html
+    - Added a navbar
+    - Smooth scrolling
+    - "Wait" cursor whilst loading
+    - Added to the README.
