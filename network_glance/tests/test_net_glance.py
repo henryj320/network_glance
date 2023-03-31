@@ -78,7 +78,6 @@ def test_ng_upd_last_online():
     result = net_g.update_last_online(valid_json_file, invalid_alias)
     assert not result
 
-
     # Resets last_online.json to before testing.
     last_online_file = open(valid_json_file, "w")
     json.dump(lo_map, last_online_file, indent=2)

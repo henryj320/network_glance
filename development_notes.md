@@ -278,4 +278,8 @@ Last update: 2023/03/28 00:12
     - Found one issue:
         - On failed update_last_online() it deletes last_online.json content.
     - Runs with ` sudo tox -e tests `.
+    - Moving onto *test_device_glance.py*
+        - Running get_last_online() on its own seemed to append to last_online.json, not overwrite
+    - test_device_glance.py complete. Toxed too
+    - Likely an issue that it needs to be run as sudo.
 
