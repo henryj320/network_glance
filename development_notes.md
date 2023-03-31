@@ -282,4 +282,6 @@ Last update: 2023/03/28 00:12
         - Running get_last_online() on its own seemed to append to last_online.json, not overwrite
     - test_device_glance.py complete. Toxed too
     - Likely an issue that it needs to be run as sudo.
+    - Moving onto *test_endpoint_glance.py*
+        - Think its all working
 
