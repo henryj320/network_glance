@@ -298,3 +298,6 @@ Last update: 2023-03-31 23:27
     - Smooth scrolling
     - "Wait" cursor whilst loading
     - Added to the README.
+21. Testing all the steps work
+    - One issue "TypeError: Failed to fetch" on the Devices Table.
+    - Failed to fetch the fike :/

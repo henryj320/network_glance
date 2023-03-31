@@ -104,13 +104,7 @@
                 }
 
 
-                fetch("../network_glance/assets/last_online.json", {
-                    method: "GET",
-                    mode: 'cors',
-                    headers: {
-                        "Access-Control-Allow-Origin": "*"
-                    }
-                }
+                fetch("../network_glance/assets/last_online.json"
                 )  // Returns a promise of the server's response.
                     .then((response) => response.json())  // Parses the response into a JS object.
                     // .then(response => console.log(JSON.stringify(response)))  // Parses the object to a string.
