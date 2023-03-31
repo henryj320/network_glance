@@ -1,6 +1,6 @@
 # network_glance
 
-Last update: 2023/03/28 00:12
+Last update: 2023-03-31 23:27
 <br><br>
 
 ## Development notes for network_glance
@@ -297,3 +297,4 @@ Last update: 2023/03/28 00:12
     - Added a navbar
     - Smooth scrolling
     - "Wait" cursor whilst loading
+    - Added to the README.
