@@ -290,3 +290,10 @@ Last update: 2023/03/28 00:12
     - May need to just run it locally
     - Failed
         - ` sudo rm -rf .tox `
+20. Final finishing touches.
+    - Code cleanup
+        - Python files first
+        - index.html
+    - Added a navbar
+    - Smooth scrolling
+    - "Wait" cursor whilst loading
