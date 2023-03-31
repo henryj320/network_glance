@@ -12,7 +12,7 @@ def test_eg_run():
                        "http://192.168.1.109:4000/muscle_checker")
     invalid_endpoints_port = ("http://192.168.1.109:4000/not_real",
                               "http://192.168.1.109:2028/fake")
-    
+
     print(type(valid_endpoints))
 
     # Check it works if given valid inputs.

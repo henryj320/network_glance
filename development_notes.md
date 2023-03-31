@@ -288,3 +288,5 @@ Last update: 2023/03/28 00:12
     - FAILED network_glance/tests/test_net_glance.py::test_ng_run - PermissionError: [Errno 1] Operation not permitted
     - FAILED network_glance/tests/test_endpoint_glance.py::test_eg_run - requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='192.168.1.109', port=4000): Max retries exceeded with url: /not_real (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f2546099540>, 'Connection to 192.168.1.109 timed out. (connect timeout=None)'))
     - May need to just run it locally
+    - Failed
+        - ` sudo rm -rf .tox `
