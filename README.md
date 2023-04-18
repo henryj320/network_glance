@@ -24,15 +24,16 @@ The intention would be for the output of this to be used in React Dashboard with
 ### Running the Project
 
 To run the project, follow these steps:
-1. Clone the Git repository with ` git clone git@github.com:henryj320/network_glance.git `.
-2. Move to the repository file with ` cd network_glance `.
-3. Create a new virtual environment with ` python -m venv venv ` and ` . ./venv/bin/activate `.
-4. Install build with ` pip install --upgrade build `.
-5. Build the package with ` python -m build `.
-6. Download all requirements with ` pip install . `.
-7. Run the API with sudo permissions - ` sudo python basic_viewer/api.py `.
+1. Update "network_glance/assets/*device_map.json*" and "network_glance/assets/*last_online.json*" with your own devices.
+2. Clone the Git repository with ` git clone git@github.com:henryj320/network_glance.git `.
+3. Move to the repository file with ` cd network_glance `.
+4. Create a new virtual environment with ` python -m venv venv ` and ` . ./venv/bin/activate `.
+5. Install build with ` pip install --upgrade build `.
+6. Build the package with ` python -m build `.
+7. Download all requirements with ` pip install . `.
+8. Run the API with sudo permissions - ` sudo python basic_viewer/api.py `.
     - This requires ` sudo ` permissions as it sends packets on the network.
-8. View the website by opening "basic_viewer/*index.html*".
+9. View the website by opening "basic_viewer/*index.html*".
 
 ### Running Tests
 To test the code after making changes, run the following commands:
