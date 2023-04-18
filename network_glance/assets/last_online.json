@@ -22,7 +22,7 @@
     },
     {
       "name": "henry-armbian-rpi-4-model-b",
-      "lastOnline": "2023-04-01 00:22:39.091773"
+      "lastOnline": "2023-04-18 11:00:00.953263"
     },
     {
       "name": "henry-ubuntu-ideapad-3",
@@ -30,11 +30,15 @@
     },
     {
       "name": "henry-alexa",
-      "lastOnline": "2023-04-01 00:22:39.091468"
+      "lastOnline": "2023-04-18 11:00:00.952538"
     },
     {
       "name": "henry-firestick",
       "lastOnline": "2023-04-01 00:22:39.091170"
+    },
+    {
+      "name": "henry-windows-work-laptop",
+      "lastOnline": "2023-04-18 11:00:00.952774"
     },
     {
       "name": "poppy-android-phone",
@@ -46,11 +50,11 @@
     },
     {
       "name": "poppy-alexa",
-      "lastOnline": "2023-04-01 00:22:39.090862"
+      "lastOnline": "2023-04-18 11:00:00.953018"
     },
     {
       "name": "home-router",
-      "lastOnline": "2023-04-01 00:22:39.089689"
+      "lastOnline": "2023-04-18 11:00:00.952117"
     }
   ]
 }
