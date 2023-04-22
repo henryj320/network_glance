@@ -1,6 +1,6 @@
 # network_glance
 
-Last update: 2023-03-31 23:27
+Last update: 2023-04-22 19:23
 <br><br>
 
 ## Development notes for network_glance
@@ -301,3 +301,49 @@ Last update: 2023-03-31 23:27
 21. Testing all the steps work
     - One issue "TypeError: Failed to fetch" on the Devices Table.
     - Failed to fetch the fike :/
+
+### Dockerising Development Notes
+
+22. Checking that it still works just in case.
+    - ` . ./venv/bin/activate `
+    - ` sudo fuser -k 4000/tcp `
+    - ` sudo python basic_viewer/api.py `
+    - Clicking "Go Live" on the index.html
+    - Cant connect to the API for some reason
+        - Ah, the React Dashboard was using the same ports
+    - Yep, all works fine
+23. Converting the website to Docker
+    - Creating the *website.Dockerfile*
+        - Based on http://tecadmin.net/tutorial/docker-run-static-website
+    - ` sudo docker build -f website.Dockerfile -t network-glance-website-image . `
+    - ` sudo docker run -it -d -p 8081:80 network-glance-website-image `
+    - Working. Fails because of the API but thats good!
+24. Converting the API to Docker
+    - Creating an *api.Dockerfile* file
+        - Added pip installing
+    - Made a requirements.txt file
+        - Found the requirements in the project
+        - Set versioning too
+    - Trying to run it
+        - ` cd .. `
+        - ` sudo docker build -f api.Dockerfile -t network-glance-api-image . `
+        - ` sudo docker run network-glance-api-image `
+    - Adding the rest of the lines
+    - Trying to run it
+        - ` sudo docker build -t network-glance-api-image --no-cache -f api.Dockerfile . `
+        - ` sudo docker run --publish 4000:4000  network-glance-api-image `
+    - Nope, need to pip install it.
+        - Needed to change the *pyproject.toml* version from 3.9 to 3.8
+    - Seems to be working!
+25. Writing a Docker Compose
+    - It all works! I do need to choose Port numbers, though
+    - Changing ports to 1002 (API) and 1001 (website)
+    - Removing all containers and images
+26. Getting scapy working
+    - Everything is running, but scapy is running inside a container so cannot see the network
+    - I wonder whether --network=host would work?
+        - ` sudo docker run --publish 1002:1002 --network=host network_glance-api `
+            - That works
+    - Adding to *docker-compose.yml*
+        - ` network_mode: host `
+27. Updating the *README.md*

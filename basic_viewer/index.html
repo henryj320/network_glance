@@ -35,7 +35,7 @@
 
 
             // Calls net_glance to get the devices connected to the network.
-            axios.get("http://192.168.1.101:4000/monitor/net_glance").then((response) => {
+            axios.get("http://192.168.1.101:1002/monitor/net_glance").then((response) => {
 
                 var network_table = document.getElementById("networkTable")
 
@@ -186,7 +186,7 @@
             });
 
 
-            axios.get("http://192.168.1.101:4000/monitor/end_glance").then((response) => {
+            axios.get("http://192.168.1.101:1002/monitor/end_glance").then((response) => {
 
                 var endpoints_table = document.getElementById("endpointsTable")
 

@@ -57,4 +57,4 @@ api.add_resource(End_Glance, '/monitor/end_glance')
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port="4000")  # Runs the Flask app.
+    app.run(host="0.0.0.0", port="1002")  # Runs the Flask app.
