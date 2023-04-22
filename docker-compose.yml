@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  api:
+    container_name: network-glance-api
+    build:
+      context: ./
+      dockerfile: api.Dockerfile
+    ports:
+      - "192.168.1.101:1002:1002"
+    network_mode: host
+
+  website:
+    container_name: network-glance-website
+    build:
+      context: ./basic_viewer/
+      dockerfile: website.Dockerfile
+    ports:
+      - "192.168.1.101:1001:80"

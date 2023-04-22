@@ -1,6 +1,6 @@
 # network_glance
 
-Last update: 2023-03-31 23:27
+Last update: 2023-04-22 21:27
 <br><br>
 
 ## network_glance
@@ -23,9 +23,19 @@ The intention would be for the output of this to be used in React Dashboard with
 
 ### Running the Project
 
+#### With Docker
+Running Network Glance is very easy if you use docker. Simply follow these steps:
+1. Clone the Git repository with ` git clone git@github.com:henryj320/network_glance.git `.
+2. Update "network_glance/assets/*device_map.json*" and "network_glance/assets/*last_online.json*" with your own devices.
+3. Move to the repository file with ` cd network_glance `.
+4. Update the endpoints to check inside of "basic_viewer/*api.py*".
+5. Run the two containers (website and API) with **` docker compose up -d `**.
+6. Visit ` http://<ip-address>:1001/ `.
+
+#### Without Docker
 To run the project, follow these steps:
-1. Update "network_glance/assets/*device_map.json*" and "network_glance/assets/*last_online.json*" with your own devices.
-2. Clone the Git repository with ` git clone git@github.com:henryj320/network_glance.git `.
+1. Clone the Git repository with ` git clone git@github.com:henryj320/network_glance.git `.
+2. Update "network_glance/assets/*device_map.json*" and "network_glance/assets/*last_online.json*" with your own devices.
 3. Move to the repository file with ` cd network_glance `.
 4. Create a new virtual environment with ` python -m venv venv ` and ` . ./venv/bin/activate `.
 5. Install build with ` pip install --upgrade build `.
