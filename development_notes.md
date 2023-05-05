@@ -1,6 +1,6 @@
 # network_glance
 
-Last update: 2023-04-22 19:23
+Last update: 2023-05-05 13:23
 <br><br>
 
 ## Development notes for network_glance
@@ -346,4 +346,6 @@ Last update: 2023-04-22 19:23
             - That works
     - Adding to *docker-compose.yml*
         - ` network_mode: host `
-27. Updating the *README.md*
+27. Updating the *README.md* with Docker information
+28. Updated the *README.md* with the IP Address locations that need to be updated.
+    - At some point, this will become an .env file.

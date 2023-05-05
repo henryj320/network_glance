@@ -1,6 +1,6 @@
 # network_glance
 
-Last update: 2023-04-22 21:27
+Last update: 2023-05-05 13:27
 <br><br>
 
 ## network_glance
@@ -27,23 +27,31 @@ The intention would be for the output of this to be used in React Dashboard with
 Running Network Glance is very easy if you use docker. Simply follow these steps:
 1. Clone the Git repository with ` git clone git@github.com:henryj320/network_glance.git `.
 2. Update "network_glance/assets/*device_map.json*" and "network_glance/assets/*last_online.json*" with your own devices.
-3. Move to the repository file with ` cd network_glance `.
-4. Update the endpoints to check inside of "basic_viewer/*api.py*".
-5. Run the two containers (website and API) with **` docker compose up -d `**.
-6. Visit ` http://<ip-address>:1001/ `.
+3. Update the IP address within these files to match your system's IP address:
+    - *docker-compose.yml*
+    - "basic_viewer/*index.html*"
+    - "basic_viewer/*api.py*"
+4. Move to the repository file with ` cd network_glance `.
+5. Update the endpoints to check inside of "basic_viewer/*api.py*".
+6. Run the two containers (website and API) with **` docker compose up -d `**.
+7. Visit ` http://<ip-address>:1001/ `.
 
 #### Without Docker
 To run the project, follow these steps:
 1. Clone the Git repository with ` git clone git@github.com:henryj320/network_glance.git `.
 2. Update "network_glance/assets/*device_map.json*" and "network_glance/assets/*last_online.json*" with your own devices.
-3. Move to the repository file with ` cd network_glance `.
-4. Create a new virtual environment with ` python -m venv venv ` and ` . ./venv/bin/activate `.
-5. Install build with ` pip install --upgrade build `.
-6. Build the package with ` python -m build `.
-7. Download all requirements with ` pip install . `.
-8. Run the API with sudo permissions - ` sudo python basic_viewer/api.py `.
+3. Update the IP address within these files to match your system's IP address:
+    - *docker-compose.yml*
+    - "basic_viewer/*index.html*"
+    - "basic_viewer/*api.py*"
+4. Move to the repository file with ` cd network_glance `.
+5. Create a new virtual environment with ` python -m venv venv ` and ` . ./venv/bin/activate `.
+6. Install build with ` pip install --upgrade build `.
+7. Build the package with ` python -m build `.
+8. Download all requirements with ` pip install . `.
+9. Run the API with sudo permissions - ` sudo python basic_viewer/api.py `.
     - This requires ` sudo ` permissions as it sends packets on the network.
-9. View the website by opening "basic_viewer/*index.html*".
+10. View the website by opening "basic_viewer/*index.html*".
 
 ### Running Tests
 To test the code after making changes, run the following commands:
