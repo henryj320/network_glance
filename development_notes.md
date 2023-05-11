@@ -349,3 +349,6 @@ Last update: 2023-05-05 13:23
 27. Updating the *README.md* with Docker information
 28. Updated the *README.md* with the IP Address locations that need to be updated.
     - At some point, this will become an .env file.
+29. Created a *releases.md* file
+    - States what V1 has.
+    - Also added a release to the GitHub repo.
